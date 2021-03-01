@@ -130,7 +130,7 @@ export async function removeDockerContainer(image: string): Promise<void> {
     // istanbul ignore if
     if (containerId.length) {
       logger.debug({ containerId }, 'Removing container');
-      cmd = `docker rm -f ${containerId}`;
+      cmd = `docker kill ${containerId} && docker rm -f ${containerId}`;
       await rawExec(cmd, {
         encoding: 'utf-8',
       });

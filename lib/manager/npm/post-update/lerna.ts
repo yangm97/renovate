@@ -61,7 +61,7 @@ export async function generateLockFiles(
       if (validRange(npmCompatibility)) {
         installNpm += `@${quote(npmCompatibility)}`;
       }
-      preCommands.push(installNpm, 'hash -d npm');
+      preCommands.push(installNpm, 'hash -r');
       cmdOptions = '--ignore-scripts  --no-audit';
       if (skipInstalls !== false) {
         cmdOptions += ' --package-lock-only';

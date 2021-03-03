@@ -43,7 +43,7 @@ export async function generateLockFile(
     } else {
       logger.debug('No npm compatibility range found - installing npm latest');
     }
-    const preCommands = [installNpm, 'hash -d npm'];
+    const preCommands = [installNpm, 'hash -r'];
     const commands = [];
     let cmdOptions = '';
     if (postUpdateOptions?.includes('npmDedupe') || skipInstalls === false) {

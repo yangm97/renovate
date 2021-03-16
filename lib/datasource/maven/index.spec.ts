@@ -343,7 +343,7 @@ describe('datasource/maven', () => {
 
       httpMock
         .scope(
-          'https://artifactory.myorg.com:443/artifactory/projectname-virtual',
+          'https://artifactory.myorg.com/artifactory/projectname-virtual',
           {
             reqheaders: { authorization: 'Bearer ABC' },
           }

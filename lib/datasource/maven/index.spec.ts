@@ -2,6 +2,7 @@ import fs from 'fs';
 import nock from 'nock';
 import { resolve } from 'upath';
 import { Release, getPkgReleases } from '..';
+import * as httpMock from '../../../test/http-mock';
 import { EXTERNAL_HOST_ERROR } from '../../constants/error-messages';
 import * as hostRules from '../../util/host-rules';
 import * as mavenVersioning from '../../versioning/maven';
@@ -60,8 +61,7 @@ describe('datasource/maven', () => {
       token: 'abc123',
     });
     jest.resetAllMocks();
-    nock.cleanAll();
-    nock.disableNetConnect();
+    httpMock.setup();
     nock('https://repo.maven.apache.org')
       .get('/maven2/mysql/mysql-connector-java/maven-metadata.xml')
       .reply(200, MYSQL_MAVEN_METADATA);
@@ -129,7 +129,8 @@ describe('datasource/maven', () => {
   });
 
   afterEach(() => {
-    nock.enableNetConnect();
+    httpMock.reset();
+    hostRules.clear();
     delete process.env.RENOVATE_EXPERIMENTAL_NO_MAVEN_POM_CHECK;
   });
 
@@ -330,6 +331,62 @@ describe('datasource/maven', () => {
         registryUrls: ['http://frontend_for_private_s3_repository/maven2'],
       });
       expect(releases.releases).toEqual(generateReleases(MYSQL_VERSIONS));
+    });
+
+    it('should redirect with authentication header', async () => {
+      nock.cleanAll();
+      hostRules.add({
+        baseUrl:
+          'https://artifactory.myorg.com/artifactory/projectname-virtual',
+        token: 'ABC',
+      });
+
+      httpMock
+        .scope(
+          'https://artifactory.myorg.com:443/artifactory/projectname-virtual',
+          {
+            reqheaders: { authorization: 'Bearer ABC' },
+          }
+        )
+        .get('/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml')
+        .reply(
+          200,
+          `<?xml version="1.0" encoding="UTF-8"?><metadata>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <version>4.2.2</version>
+      <versioning>
+        <versions>
+          <version>4.2.2</version>
+          <version>4.2.1</version>
+        </versions>
+        <lastUpdated>20130301200000</lastUpdated>
+      </versioning>
+    </metadata>`
+        )
+        .head(
+          '/com/github/spotbugs/spotbugs-annotations/4.2.2/spotbugs-annotations-4.2.2.pom'
+        )
+        .reply(200)
+        .get(
+          '/com/github/spotbugs/spotbugs-annotations/4.2.2/spotbugs-annotations-4.2.2.pom'
+        )
+        .reply(200)
+        .head(
+          '/com/github/spotbugs/spotbugs-annotations/4.2.1/spotbugs-annotations-4.2.1.pom'
+        )
+        .reply(404);
+
+      const releases = await getPkgReleases({
+        ...config,
+        depName: 'com.github.spotbugs:spotbugs-annotations',
+        registryUrls: [
+          'https://artifactory.myorg.com:443/artifactory/projectname-virtual',
+        ],
+      });
+      expect(httpMock.getTrace()).toMatchSnapshot();
+      expect(releases).not.toBeNull();
+      expect(releases.releases).toEqual(generateReleases(['4.2.2']));
     });
   });
 });

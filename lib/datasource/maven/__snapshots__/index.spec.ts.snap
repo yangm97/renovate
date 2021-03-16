@@ -1,5 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`datasource/maven getReleases should redirect with authentication header 1`] = `
+Array [
+  Object {
+    "headers": Object {
+      "accept-encoding": "gzip, deflate",
+      "authorization": "Bearer ABC",
+      "host": "artifactory.myorg.com",
+      "user-agent": "https://github.com/renovatebot/renovate",
+    },
+    "method": "GET",
+    "url": "https://artifactory.myorg.com/artifactory/projectname-virtual/com/github/spotbugs/spotbugs-annotations/maven-metadata.xml",
+  },
+  Object {
+    "headers": Object {
+      "accept-encoding": "gzip, deflate",
+      "authorization": "Bearer ABC",
+      "host": "artifactory.myorg.com",
+      "user-agent": "https://github.com/renovatebot/renovate",
+    },
+    "method": "HEAD",
+    "url": "https://artifactory.myorg.com/artifactory/projectname-virtual/com/github/spotbugs/spotbugs-annotations/4.2.2/spotbugs-annotations-4.2.2.pom",
+  },
+  Object {
+    "headers": Object {
+      "accept-encoding": "gzip, deflate",
+      "authorization": "Bearer ABC",
+      "host": "artifactory.myorg.com",
+      "user-agent": "https://github.com/renovatebot/renovate",
+    },
+    "method": "HEAD",
+    "url": "https://artifactory.myorg.com/artifactory/projectname-virtual/com/github/spotbugs/spotbugs-annotations/4.2.1/spotbugs-annotations-4.2.1.pom",
+  },
+  Object {
+    "headers": Object {
+      "accept-encoding": "gzip, deflate",
+      "authorization": "Bearer ABC",
+      "host": "artifactory.myorg.com",
+      "user-agent": "https://github.com/renovatebot/renovate",
+    },
+    "method": "GET",
+    "url": "https://artifactory.myorg.com/artifactory/projectname-virtual/com/github/spotbugs/spotbugs-annotations/4.2.2/spotbugs-annotations-4.2.2.pom",
+  },
+]
+`;
+
 exports[`datasource/maven getReleases should return all versions from a custom repository 1`] = `
 Object {
   "display": "mysql:mysql-connector-java",

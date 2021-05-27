@@ -33,7 +33,6 @@ describe(getName(), () => {
         bitbucketApiHost
       );
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws 404', async () => {
@@ -50,7 +49,6 @@ describe(getName(), () => {
           bitbucketApiHost
         )
       ).rejects.toThrow(PRESET_DEP_NOT_FOUND);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws to big', async () => {
@@ -71,7 +69,6 @@ describe(getName(), () => {
           bitbucketApiHost
         )
       ).rejects.toThrow(PRESET_INVALID_JSON);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws to invalid', async () => {
@@ -91,7 +88,6 @@ describe(getName(), () => {
           bitbucketApiHost
         )
       ).rejects.toThrow(PRESET_INVALID_JSON);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -113,7 +109,6 @@ describe(getName(), () => {
           'https://api.github.example.org'
         )
       ).toEqual({ from: 'api' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('uses custom path', async () => {
       httpMock
@@ -132,7 +127,6 @@ describe(getName(), () => {
           'https://api.github.example.org'
         )
       ).toEqual({ from: 'api' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

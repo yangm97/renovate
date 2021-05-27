@@ -130,7 +130,6 @@ describe(getName(), () => {
         });
       const res = await bitbucket.getRepos();
       expect(res).toEqual(['foo/bar', 'some/repo']);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -145,7 +144,6 @@ describe(getName(), () => {
           repository: 'some/repo',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -170,7 +168,6 @@ describe(getName(), () => {
         .reply(200, diff);
 
       expect(await bitbucket.getBranchPr('branch')).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if no PR for branch', async () => {
       const scope = await initRepoMock();
@@ -182,7 +179,6 @@ describe(getName(), () => {
 
       const res = await bitbucket.getBranchPr('branch_without_pr');
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -192,14 +188,12 @@ describe(getName(), () => {
       expect(await bitbucket.getBranchStatus('master', null)).toBe(
         BranchStatus.green
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatus 2', async () => {
       await initRepoMock();
       expect(await bitbucket.getBranchStatus('master', ['foo'])).toBe(
         BranchStatus.red
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatus 3', async () => {
       const scope = await initRepoMock();
@@ -223,7 +217,6 @@ describe(getName(), () => {
       expect(await bitbucket.getBranchStatus('master', [])).toBe(
         BranchStatus.red
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatus 4', async () => {
       const scope = await initRepoMock();
@@ -250,7 +243,6 @@ describe(getName(), () => {
       expect(await bitbucket.getBranchStatus('branch', [])).toBe(
         BranchStatus.green
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatus 5', async () => {
       const scope = await initRepoMock();
@@ -277,7 +269,6 @@ describe(getName(), () => {
       expect(await bitbucket.getBranchStatus('pending/branch', [])).toBe(
         BranchStatus.yellow
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatus 6', async () => {
       const scope = await initRepoMock();
@@ -301,7 +292,6 @@ describe(getName(), () => {
       expect(
         await bitbucket.getBranchStatus('branch-with-empty-status', [])
       ).toBe(BranchStatus.yellow);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -328,17 +318,14 @@ describe(getName(), () => {
     });
     it('getBranchStatusCheck 1', async () => {
       expect(await bitbucket.getBranchStatusCheck('master', null)).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatusCheck 2', async () => {
       expect(await bitbucket.getBranchStatusCheck('master', 'foo')).toBe(
         BranchStatus.red
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('getBranchStatusCheck 3', async () => {
       expect(await bitbucket.getBranchStatusCheck('master', 'bar')).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -375,7 +362,6 @@ describe(getName(), () => {
         state: BranchStatus.red,
         url: 'targetUrl',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -401,7 +387,6 @@ describe(getName(), () => {
           ],
         });
       expect(await bitbucket.findIssue('title')).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if no issues', async () => {
       const scope = await initRepoMock(
@@ -418,7 +403,6 @@ describe(getName(), () => {
           values: [],
         });
       expect(await bitbucket.findIssue('title')).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('ensureIssue()', () => {
@@ -449,7 +433,6 @@ describe(getName(), () => {
       expect(
         await bitbucket.ensureIssue({ title: 'title', body: 'body' })
       ).toEqual('updated');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('creates new issue', async () => {
       const scope = await initRepoMock(
@@ -474,7 +457,6 @@ describe(getName(), () => {
           body: 'body',
         })
       ).toEqual('created');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('noop for existing issue', async () => {
       const scope = await initRepoMock({}, { has_issues: true });
@@ -504,7 +486,6 @@ describe(getName(), () => {
           body: '\n content \n',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -512,7 +493,6 @@ describe(getName(), () => {
     it('does not throw', async () => {
       await initRepoMock();
       await bitbucket.ensureIssueClosing('title');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('closes issue', async () => {
       const scope = await initRepoMock({}, { has_issues: true });
@@ -539,7 +519,6 @@ describe(getName(), () => {
         .put('/2.0/repositories/some/repo/issues/26')
         .reply(200);
       await bitbucket.ensureIssueClosing('title');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -547,7 +526,6 @@ describe(getName(), () => {
     it('has no issues', async () => {
       await initRepoMock();
       await bitbucket.getIssueList();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('get issues', async () => {
       const scope = await initRepoMock({}, { has_issues: true });
@@ -571,7 +549,7 @@ describe(getName(), () => {
           ],
         });
       const issues = await bitbucket.getIssueList();
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(issues).toHaveLength(2);
       expect(issues).toMatchSnapshot();
     });
@@ -584,7 +562,7 @@ describe(getName(), () => {
         })
         .reply(500, {});
       const issues = await bitbucket.getIssueList();
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(issues).toHaveLength(0);
     });
   });
@@ -606,7 +584,6 @@ describe(getName(), () => {
         .put('/2.0/repositories/some/repo/pullrequests/5')
         .reply(200);
       await bitbucket.addReviewers(5, ['someuser', 'someotheruser']);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -662,7 +639,6 @@ describe(getName(), () => {
           ],
         });
       expect(await bitbucket.getPrList()).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -684,7 +660,6 @@ describe(getName(), () => {
           prTitle: 'title',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -708,7 +683,6 @@ describe(getName(), () => {
         },
       });
       expect(number).toBe(5);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -721,7 +695,6 @@ describe(getName(), () => {
         .get('/2.0/repositories/some/repo/pullrequests/5/diff')
         .reply(200, diff);
       expect(await bitbucket.getPr(5)).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('canRebase', async () => {
@@ -758,8 +731,6 @@ describe(getName(), () => {
 
         global.gitAuthor = { email: 'jane@example.com', name: 'jane' };
         expect(await bitbucket.getPr(5)).toMatchSnapshot();
-
-        expect(httpMock.getTrace()).toMatchSnapshot();
       } finally {
         global.gitAuthor = author;
       }
@@ -789,7 +760,6 @@ describe(getName(), () => {
         .put('/2.0/repositories/some/repo/pullrequests/5')
         .reply(200);
       await bitbucket.updatePr({ number: 5, prTitle: 'title', prBody: 'body' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws an error on failure to get current list of reviewers', async () => {
       const scope = await initRepoMock();
@@ -799,7 +769,6 @@ describe(getName(), () => {
       await expect(() =>
         bitbucket.updatePr({ number: 5, prTitle: 'title', prBody: 'body' })
       ).rejects.toThrowErrorMatchingSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('closes PR', async () => {
       const scope = await initRepoMock();
@@ -815,7 +784,6 @@ describe(getName(), () => {
         prTitle: pr.title,
         state: PrState.Closed,
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -824,7 +792,6 @@ describe(getName(), () => {
       const scope = await initRepoMock();
       scope.post('/2.0/repositories/some/repo/pullrequests/5/merge').reply(200);
       await bitbucket.mergePr(5, 'branch');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -843,7 +810,6 @@ describe(getName(), () => {
         .reply(200, JSON.stringify(data));
       const res = await bitbucket.getJsonFile('file.json');
       expect(res).toEqual(data);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws on malformed JSON', async () => {
       const scope = await initRepoMock();
@@ -851,7 +817,6 @@ describe(getName(), () => {
         .get('/2.0/repositories/some/repo/src/HEAD/file.json')
         .reply(200, '!@#');
       await expect(bitbucket.getJsonFile('file.json')).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws on errors', async () => {
       const scope = await initRepoMock();
@@ -859,7 +824,6 @@ describe(getName(), () => {
         .get('/2.0/repositories/some/repo/src/HEAD/file.json')
         .replyWithError('some error');
       await expect(bitbucket.getJsonFile('file.json')).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

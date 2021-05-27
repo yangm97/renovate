@@ -21,7 +21,6 @@ describe(getName(), () => {
           presetName: 'non-default',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws if missing', async () => {
@@ -37,7 +36,6 @@ describe(getName(), () => {
       await expect(
         gitlab.getPreset({ packageName: 'some/repo' })
       ).rejects.toThrow(PRESET_DEP_NOT_FOUND);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should return the preset', async () => {
@@ -58,7 +56,6 @@ describe(getName(), () => {
 
       const content = await gitlab.getPreset({ packageName: 'some/repo' });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should query custom paths', async () => {
@@ -83,7 +80,6 @@ describe(getName(), () => {
         presetName: 'custom',
       });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -107,7 +103,6 @@ describe(getName(), () => {
           undefined
         )
       ).toEqual({});
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('uses custom endpoint', async () => {
@@ -130,7 +125,6 @@ describe(getName(), () => {
           'https://gitlab.example.org/api/v4'
         )
       ).rejects.toThrow(PRESET_DEP_NOT_FOUND);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

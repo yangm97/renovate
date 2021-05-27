@@ -30,6 +30,5 @@ describe(getName(), () => {
     httpMock.scope(baseUrl).post('/some-url').reply(200, body);
     const res = await api.postJson('some-url');
     expect(res.body).toEqual(body);
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
 });

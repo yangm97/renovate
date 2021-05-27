@@ -85,7 +85,6 @@ describe(getName(), () => {
     httpMock.scope(gitlabApiHost).post('/api/v4/some-url').reply(200, body);
     const res = await gitlabApi.postJson('some-url');
     expect(res.body).toEqual(body);
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
   it('sets baseUrl', () => {
     expect(() => setBaseUrl(`${selfHostedUrl}/api/v4/`)).not.toThrow();

@@ -31,7 +31,6 @@ describe(getName(), () => {
           depName: 'hashicorp/consul/aws',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock
@@ -46,7 +45,6 @@ describe(getName(), () => {
           depName: 'hashicorp/consul/aws',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock
@@ -61,7 +59,6 @@ describe(getName(), () => {
           depName: 'hashicorp/consul/aws',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data', async () => {
       httpMock
@@ -76,7 +73,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes with registry in name', async () => {
       httpMock
@@ -91,7 +87,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('rejects mismatch', async () => {
       httpMock
@@ -106,7 +101,6 @@ describe(getName(), () => {
         registryUrls: ['https://terraform.company.com'],
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('rejects servicediscovery', async () => {
       httpMock
@@ -119,7 +113,6 @@ describe(getName(), () => {
         registryUrls: ['https://terraform.company.com'],
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data on changed subpath', async () => {
       httpMock
@@ -133,7 +126,7 @@ describe(getName(), () => {
         registryUrls: ['https://terraform.foo.bar'],
         depName: 'hashicorp/consul/aws',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
     });

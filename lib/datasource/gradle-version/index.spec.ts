@@ -32,7 +32,6 @@ describe(getName(), () => {
       expect(
         res.releases.filter(({ isDeprecated }) => isDeprecated)
       ).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('calls configured registryUrls', async () => {
@@ -52,7 +51,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('handles empty releases', async () => {
@@ -63,7 +61,6 @@ describe(getName(), () => {
 
       const res = await getPkgReleases(config);
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('handles errors', async () => {
@@ -90,7 +87,6 @@ describe(getName(), () => {
           })
         )
       ).rejects.toThrow('Response code 404 (Not Found)');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

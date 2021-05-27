@@ -32,7 +32,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(3);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns tags with default registry', async () => {
@@ -47,7 +46,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(2);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

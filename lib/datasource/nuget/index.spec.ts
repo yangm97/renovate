@@ -180,7 +180,6 @@ describe(getName(), () => {
       });
 
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it(`empty packages list (v3)`, async () => {
       httpMock
@@ -195,7 +194,6 @@ describe(getName(), () => {
       });
 
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for empty result (v3v2)', async () => {
@@ -214,7 +212,6 @@ describe(getName(), () => {
           ...configV3V2,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for empty result (v2)', async () => {
       httpMock
@@ -228,7 +225,6 @@ describe(getName(), () => {
           ...configV2,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for empty result (v3)', async () => {
       httpMock
@@ -239,7 +235,6 @@ describe(getName(), () => {
         ...configV3,
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for non 200 (v3v2)', async () => {
@@ -255,7 +250,6 @@ describe(getName(), () => {
           ...configV3V2,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for non 200 (v3)', async () => {
       httpMock.scope('https://api.nuget.org').get('/v3/index.json').reply(500);
@@ -264,7 +258,6 @@ describe(getName(), () => {
           ...configV3,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for non 200 (v2)', async () => {
       httpMock
@@ -278,7 +271,6 @@ describe(getName(), () => {
           ...configV2,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for unknown error (v3v2)', async () => {
@@ -297,7 +289,6 @@ describe(getName(), () => {
           ...configV3V2,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns deduplicated results', async () => {
       httpMock
@@ -323,7 +314,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(45);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error in getReleasesFromV3Feed (v3)', async () => {
       httpMock
@@ -335,7 +325,6 @@ describe(getName(), () => {
           ...configV3,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error in getQueryUrlForV3Feed  (v3)', async () => {
       httpMock
@@ -349,7 +338,6 @@ describe(getName(), () => {
           ...configV3,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error (v2)', async () => {
       httpMock
@@ -363,7 +351,6 @@ describe(getName(), () => {
           ...configV2,
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data (v3) feed is a nuget.org', async () => {
       httpMock
@@ -381,7 +368,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.sourceUrl).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data (v3) for several catalog pages', async () => {
       const scope = httpMock
@@ -399,7 +385,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.sourceUrl).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data (v3) feed is not a nuget.org', async () => {
       httpMock
@@ -427,7 +412,7 @@ describe(getName(), () => {
       });
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(res.sourceUrl).toBeDefined();
     });
     it('processes real data (v3) nuspec fetch error', async () => {
@@ -446,7 +431,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.sourceUrl).not.toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data (v3) nuspec fetch 404 error', async () => {
       httpMock
@@ -464,7 +448,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.sourceUrl).not.toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data (v2)', async () => {
       httpMock
@@ -479,7 +462,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.sourceUrl).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data no relase (v2)', async () => {
       httpMock
@@ -492,7 +474,6 @@ describe(getName(), () => {
         ...configV2,
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data without project url (v2)', async () => {
       httpMock
@@ -507,7 +488,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
       expect(res.sourceUrl).not.toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data with no github project url (v2)', async () => {
       httpMock
@@ -521,7 +501,6 @@ describe(getName(), () => {
       });
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles paginated results (v2)', async () => {
       httpMock
@@ -539,7 +518,6 @@ describe(getName(), () => {
       });
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

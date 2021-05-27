@@ -1518,46 +1518,6 @@ Object {
 }
 `;
 
-exports[`datasource/gradle-version/index getReleases calls configured registryUrls 2`] = `
-Array [
-  Object {
-    "headers": Object {
-      "accept": "application/json",
-      "accept-encoding": "gzip, deflate, br",
-      "host": "foo.bar",
-      "user-agent": "https://github.com/renovatebot/renovate",
-    },
-    "method": "GET",
-    "url": "https://foo.bar/",
-  },
-  Object {
-    "headers": Object {
-      "accept": "application/json",
-      "accept-encoding": "gzip, deflate, br",
-      "host": "baz.qux",
-      "user-agent": "https://github.com/renovatebot/renovate",
-    },
-    "method": "GET",
-    "url": "http://baz.qux/",
-  },
-]
-`;
-
-exports[`datasource/gradle-version/index getReleases handles empty releases 1`] = `
-Array [
-  Object {
-    "headers": Object {
-      "accept": "application/json",
-      "accept-encoding": "gzip, deflate, br",
-      "host": "services.gradle.org",
-      "user-agent": "https://github.com/renovatebot/renovate",
-    },
-    "method": "GET",
-    "url": "https://services.gradle.org/versions/all",
-  },
-]
-`;
-
 exports[`datasource/gradle-version/index getReleases handles errors 1`] = `
 Array [
   Object {
@@ -2792,19 +2752,4 @@ Object {
   ],
   "sourceUrl": "https://github.com/gradle/gradle",
 }
-`;
-
-exports[`datasource/gradle-version/index getReleases processes real data 2`] = `
-Array [
-  Object {
-    "headers": Object {
-      "accept": "application/json",
-      "accept-encoding": "gzip, deflate, br",
-      "host": "services.gradle.org",
-      "user-agent": "https://github.com/renovatebot/renovate",
-    },
-    "method": "GET",
-    "url": "https://services.gradle.org/versions/all",
-  },
-]
 `;

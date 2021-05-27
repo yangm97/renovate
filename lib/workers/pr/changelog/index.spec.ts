@@ -121,7 +121,6 @@ describe(getName(), () => {
           ...upgrade,
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('filters unnecessary warns', async () => {
       httpMock
@@ -134,7 +133,6 @@ describe(getName(), () => {
         depName: '@renovate/no',
       });
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports node engines', async () => {
       expect(
@@ -197,7 +195,6 @@ describe(getName(), () => {
           endpoint: 'https://github-enterprise.example.com/',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports github enterprise and github enterprise changelog', async () => {
       httpMock
@@ -218,7 +215,6 @@ describe(getName(), () => {
           endpoint: 'https://github-enterprise.example.com/',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('supports github.com and github enterprise changelog', async () => {
@@ -238,7 +234,6 @@ describe(getName(), () => {
           sourceUrl: 'https://github-enterprise.example.com/chalk/chalk',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

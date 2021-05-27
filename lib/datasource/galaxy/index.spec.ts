@@ -19,7 +19,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'non_existent_crate' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for missing fields', async () => {
       httpMock
@@ -29,7 +28,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'non_existent_crate' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for empty list', async () => {
       httpMock
@@ -39,7 +37,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'non_existent_crate' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock
@@ -49,7 +46,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'some_crate' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock
@@ -59,7 +55,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'some_crate' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data', async () => {
       httpMock
@@ -73,7 +68,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('return null if searching random username and project name', async () => {
       httpMock
@@ -82,7 +76,6 @@ describe(getName(), () => {
         .reply(200, empty);
       const res = await getPkgReleases({ datasource, depName: 'foo.bar' });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws for 5xx', async () => {
       httpMock
@@ -97,7 +90,6 @@ describe(getName(), () => {
       }
       expect(e).toBeDefined();
       expect(e).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws for 404', async () => {
       httpMock
@@ -106,7 +98,6 @@ describe(getName(), () => {
         .reply(404);
       const res = await getPkgReleases({ datasource, depName: 'foo.bar' });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

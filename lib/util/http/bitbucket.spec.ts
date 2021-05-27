@@ -30,7 +30,6 @@ describe(getName(), () => {
     httpMock.scope(baseUrl).post('/some-url').reply(200, body);
     const res = await api.postJson('some-url');
     expect(res.body).toEqual(body);
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
   it('accepts custom baseUrl', async () => {
     const customBaseUrl = 'https://api-test.bitbucket.org';
@@ -41,13 +40,10 @@ describe(getName(), () => {
 
     setBaseUrl(customBaseUrl);
     await api.postJson('some-url');
-
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
   it('returns cached', async () => {
     httpMock.scope(baseUrl).get('/projects/foo').reply(200, {});
     const { body } = await api.getJson('projects/foo');
     expect(body).toMatchSnapshot();
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
 });

@@ -123,7 +123,6 @@ describe(getName(), () => {
           registryUrls: ['https://crates.io'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for missing fields', async () => {
       httpMock
@@ -137,7 +136,6 @@ describe(getName(), () => {
           registryUrls: ['https://crates.io'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for empty list', async () => {
       httpMock.scope(baseUrl).get('/no/n_/non_existent_crate').reply(200, '\n');
@@ -148,7 +146,6 @@ describe(getName(), () => {
           registryUrls: ['https://crates.io'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock.scope(baseUrl).get('/so/me/some_crate').reply(404);
@@ -159,7 +156,6 @@ describe(getName(), () => {
           registryUrls: ['https://crates.io'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws for 5xx', async () => {
       httpMock.scope(baseUrl).get('/so/me/some_crate').reply(502);
@@ -175,7 +171,6 @@ describe(getName(), () => {
       }
       expect(e).toBeDefined();
       expect(e).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock.scope(baseUrl).get('/so/me/some_crate').replyWithError('');
@@ -186,7 +181,6 @@ describe(getName(), () => {
           registryUrls: ['https://crates.io'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data: libc', async () => {
       httpMock.scope(baseUrl).get('/li/bc/libc').reply(200, res1);
@@ -198,7 +192,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data: amethyst', async () => {
       httpMock.scope(baseUrl).get('/am/et/amethyst').reply(200, res2);
@@ -210,7 +203,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('refuses to clone if allowCustomCrateRegistries is not true', async () => {
       const { mockClone } = setupGitMocks();

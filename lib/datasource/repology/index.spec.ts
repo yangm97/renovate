@@ -71,7 +71,6 @@ describe(getName(), () => {
           depName: 'debian_stable/nginx',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for missing repository or package', async () => {
@@ -89,7 +88,6 @@ describe(getName(), () => {
           depName: 'this_should/never-exist',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws error on unexpected API response', async () => {
@@ -109,7 +107,6 @@ describe(getName(), () => {
           depName: 'debian_stable/nginx',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws error on unexpected Resolver response with binary package', async () => {
@@ -124,7 +121,6 @@ describe(getName(), () => {
           depName: 'debian_stable/nginx',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws error on unexpected Resolver response with source package', async () => {
@@ -143,7 +139,6 @@ describe(getName(), () => {
           depName: 'debian_stable/nginx',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws error on API request timeout', async () => {
@@ -163,7 +158,6 @@ describe(getName(), () => {
           depName: 'debian_stable/nginx',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws error on Resolver request timeout', async () => {
@@ -178,7 +172,6 @@ describe(getName(), () => {
           depName: 'debian_stable/nginx',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws without repository and package name', async () => {
@@ -189,7 +182,6 @@ describe(getName(), () => {
           depName: 'invalid-lookup-name',
         })
       ).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns correct version for binary package', async () => {
@@ -206,7 +198,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(1);
       expect(res.releases[0].version).toEqual('1.14.2-2+deb10u1');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns correct version for source package', async () => {
@@ -226,7 +217,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(1);
       expect(res.releases[0].version).toEqual('1.181');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns correct version for api package', async () => {
@@ -243,7 +233,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(1);
       expect(res.releases[0].version).toEqual('1.181');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns correct version for multi-package project with same name', async () => {
@@ -260,7 +249,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(1);
       expect(res.releases[0].version).toEqual('9.3.0-r2');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns correct version for multi-package project with different name', async () => {
@@ -277,7 +265,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(1);
       expect(res.releases[0].version).toEqual('12.2-4+deb10u1');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns multiple versions if they are present in repository', async () => {
@@ -298,7 +285,6 @@ describe(getName(), () => {
       expect(res.releases).toHaveLength(6);
       expect(res.releases[0].version).toEqual('1:11.0.7.10-1.el8_1');
       expect(res.releases[5].version).toEqual('1:11.0.9.11-3.el8_3');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for scenario when repo is not in package results', async () => {
@@ -325,7 +311,6 @@ describe(getName(), () => {
       });
 
       expect(release).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

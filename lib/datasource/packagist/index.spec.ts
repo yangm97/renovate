@@ -66,7 +66,6 @@ describe(getName(), () => {
         depName: 'vendor/package-name',
       });
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles timeouts', async () => {
       httpMock
@@ -81,7 +80,6 @@ describe(getName(), () => {
         depName: 'vendor/package-name2',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles auth rejections', async () => {
       httpMock
@@ -96,7 +94,6 @@ describe(getName(), () => {
         depName: 'vendor/package-name',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles not found registries', async () => {
       httpMock
@@ -111,7 +108,6 @@ describe(getName(), () => {
         depName: 'drewm/mailchip-api',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports includes packages', async () => {
       hostRules.find = jest.fn(() => ({
@@ -140,7 +136,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports lazy repositories', async () => {
       const packagesJson = {
@@ -179,7 +174,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports provider-includes', async () => {
       const packagesJson = {
@@ -224,7 +218,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles provider-includes miss', async () => {
       const packagesJson = {
@@ -265,7 +258,6 @@ describe(getName(), () => {
         depName: 'some/other',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports providers', async () => {
       const packagesJson = {
@@ -298,7 +290,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles providers miss', async () => {
       const packagesJson = {
@@ -327,7 +318,6 @@ describe(getName(), () => {
         depName: 'some/other',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real versioned data', async () => {
       httpMock
@@ -343,7 +333,6 @@ describe(getName(), () => {
           depName: 'drewm/mailchimp-api',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('adds packagist source implicitly', async () => {
       httpMock
@@ -359,7 +348,6 @@ describe(getName(), () => {
           depName: 'drewm/mailchimp-api',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

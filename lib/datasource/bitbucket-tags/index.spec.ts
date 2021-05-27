@@ -35,7 +35,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res.releases).toHaveLength(3);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getDigest', () => {
@@ -73,7 +72,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).toBeString();
       expect(res).toEqual('123');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getDigest with no commits', () => {
@@ -97,7 +95,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getTagCommit', () => {
@@ -123,7 +120,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).toBeString();
       expect(res).toEqual('123');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

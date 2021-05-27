@@ -64,7 +64,6 @@ describe(getName(), () => {
         .reply(200, '');
       const res = await getDigest({ lookupName: 'golang.org/y/text' }, null);
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for wrong name', async () => {
       httpMock
@@ -73,7 +72,6 @@ describe(getName(), () => {
         .reply(200, res1);
       const res = await getDigest({ lookupName: 'golang.org/y/text' }, null);
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('gitlab digest is not supported at the moment', async () => {
       httpMock
@@ -85,7 +83,6 @@ describe(getName(), () => {
         null
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns digest', async () => {
       httpMock
@@ -98,7 +95,6 @@ describe(getName(), () => {
         .reply(200, [{ sha: 'abcdefabcdefabcdefabcdef' }]);
       const res = await getDigest({ lookupName: 'golang.org/x/text' }, null);
       expect(res).toBe('abcdefabcdefabcdefabcdef');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('support bitbucket digest', async () => {
       httpMock
@@ -127,7 +123,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -142,7 +137,6 @@ describe(getName(), () => {
         depName: 'golang.org/foo/something',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock
@@ -154,7 +148,6 @@ describe(getName(), () => {
         depName: 'golang.org/foo/something',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock
@@ -166,7 +159,6 @@ describe(getName(), () => {
         depName: 'golang.org/foo/something',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data', async () => {
       httpMock
@@ -186,7 +178,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('support gitlab', async () => {
       httpMock
@@ -210,7 +201,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('support self hosted gitlab private repositories', async () => {
       hostRules.find.mockReturnValue({ token: 'some-token' });
@@ -229,7 +219,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('support bitbucket tags', async () => {
       httpMock
@@ -247,7 +236,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('unknown datasource returns null', async () => {
       httpMock
@@ -260,7 +248,7 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(logger.logger.info).toHaveBeenCalledWith(
         { lookupName: 'some.unknown.website/example/module' },
         'Unsupported go host - cannot look up versions'
@@ -286,7 +274,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for go-import prefix mismatch', async () => {
       httpMock
@@ -304,7 +291,6 @@ describe(getName(), () => {
         depName: 'git.enterprise.com/example/module',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('skips wrong package', async () => {
       httpMock
@@ -316,7 +302,6 @@ describe(getName(), () => {
         depName: 'golang.org/x/sys',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('skips unsupported platform', async () => {
       httpMock
@@ -334,7 +319,6 @@ describe(getName(), () => {
         depName: 'golang.org/x/text',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('works for known servers', async () => {
       httpMock
@@ -458,7 +442,6 @@ describe(getName(), () => {
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

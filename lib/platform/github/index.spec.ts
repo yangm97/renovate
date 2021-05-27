@@ -52,7 +52,6 @@ describe(getName(), () => {
       await expect(
         github.initPlatform({ token: 'abc123' } as any)
       ).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should support default endpoint no email access', async () => {
       httpMock
@@ -66,7 +65,6 @@ describe(getName(), () => {
       expect(
         await github.initPlatform({ token: 'abc123' } as any)
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should support default endpoint no email result', async () => {
       httpMock
@@ -80,7 +78,6 @@ describe(getName(), () => {
       expect(
         await github.initPlatform({ token: 'abc123' } as any)
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should support gitAuthor and username', async () => {
       expect(
@@ -107,7 +104,6 @@ describe(getName(), () => {
       expect(
         await github.initPlatform({ token: 'abc123' } as any)
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should support custom endpoint', async () => {
       httpMock
@@ -128,7 +124,6 @@ describe(getName(), () => {
           token: 'abc123',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -147,7 +142,6 @@ describe(getName(), () => {
         ]);
       const repos = await github.getRepos();
       expect(repos).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -223,7 +217,6 @@ describe(getName(), () => {
         repository: 'some/repo',
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should fork when forkMode', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -233,7 +226,6 @@ describe(getName(), () => {
         forkMode: true,
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should update fork when forkMode', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -244,7 +236,6 @@ describe(getName(), () => {
         forkMode: true,
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('detects fork default branch mismatch', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -257,7 +248,6 @@ describe(getName(), () => {
         forkMode: true,
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should squash', async () => {
       httpMock
@@ -285,7 +275,6 @@ describe(getName(), () => {
         repository: 'some/repo',
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should merge', async () => {
       httpMock
@@ -313,7 +302,6 @@ describe(getName(), () => {
         repository: 'some/repo',
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should not guess at merge', async () => {
       httpMock
@@ -335,7 +323,6 @@ describe(getName(), () => {
         repository: 'some/repo',
       } as any);
       expect(config).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should throw error if archived', async () => {
       httpMock
@@ -360,7 +347,6 @@ describe(getName(), () => {
           repository: 'some/repo',
         } as any)
       ).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws not-found', async () => {
       httpMock.scope(githubApiHost).post(`/graphql`).reply(404);
@@ -369,7 +355,6 @@ describe(getName(), () => {
           repository: 'some/repo',
         } as any)
       ).rejects.toThrow(REPOSITORY_NOT_FOUND);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should throw error if renamed', async () => {
       httpMock
@@ -393,7 +378,6 @@ describe(getName(), () => {
           repository: 'some/repo',
         } as any)
       ).rejects.toThrow(REPOSITORY_RENAMED);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getRepoForceRebase', () => {
@@ -424,7 +408,6 @@ describe(getName(), () => {
         });
       const res = await github.getRepoForceRebase();
       expect(res).toBe(true);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should handle 404', async () => {
       httpMock
@@ -433,7 +416,6 @@ describe(getName(), () => {
         .reply(404);
       const res = await github.getRepoForceRebase();
       expect(res).toBe(false);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should handle 403', async () => {
       httpMock
@@ -442,7 +424,6 @@ describe(getName(), () => {
         .reply(403);
       const res = await github.getRepoForceRebase();
       expect(res).toBe(false);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should throw 401', async () => {
       httpMock
@@ -452,7 +433,6 @@ describe(getName(), () => {
       await expect(
         github.getRepoForceRebase()
       ).rejects.toThrowErrorMatchingSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getBranchPr(branchName)', () => {
@@ -466,7 +446,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should return the PR object', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -508,7 +487,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should reopen an autoclosed PR', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -556,7 +534,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('aborts reopen if PR is too old', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -581,7 +558,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('aborts reopening if branch recreation fails', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -607,7 +583,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('aborts reopening if PR reopening fails', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -631,7 +606,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should return the PR object in fork mode', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -675,7 +649,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getBranchPr('somebranch');
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getBranchStatus()', () => {
@@ -688,7 +661,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', null);
       expect(res).toEqual(BranchStatus.green);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('return failed if unsupported requiredStatusChecks', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -699,7 +671,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', ['foo']);
       expect(res).toEqual(BranchStatus.red);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should pass through success', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -717,7 +688,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', []);
       expect(res).toEqual(BranchStatus.green);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should pass through failed', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -735,7 +705,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', []);
       expect(res).toEqual(BranchStatus.red);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('defaults to pending', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -752,7 +721,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', []);
       expect(res).toEqual(BranchStatus.yellow);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should fail if a check run has failed', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -786,7 +754,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', []);
       expect(res).toEqual(BranchStatus.red);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should succeed if no status and all passed check runs', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -826,7 +793,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', []);
       expect(res).toEqual(BranchStatus.green);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should fail if a check run is pending', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -859,7 +825,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatus('somebranch', []);
       expect(res).toEqual(BranchStatus.yellow);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getBranchStatusCheck', () => {
@@ -893,7 +858,6 @@ describe(getName(), () => {
         'context-2'
       );
       expect(res).toEqual(BranchStatus.yellow);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -921,7 +885,6 @@ describe(getName(), () => {
       } as any);
       const res = await github.getBranchStatusCheck('somebranch', 'context-4');
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('setBranchStatus', () => {
@@ -948,7 +911,6 @@ describe(getName(), () => {
         state: BranchStatus.yellow,
         url: 'some-url',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('sets branch status', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -992,7 +954,6 @@ describe(getName(), () => {
         state: BranchStatus.green,
         url: 'some-url',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('findIssue()', () => {
@@ -1027,7 +988,6 @@ describe(getName(), () => {
         });
       const res = await github.findIssue('title-3');
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('finds issue', async () => {
       httpMock
@@ -1062,7 +1022,6 @@ describe(getName(), () => {
         .reply(200, { body: 'new-content' });
       const res = await github.findIssue('title-2');
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('ensureIssue()', () => {
@@ -1102,7 +1061,6 @@ describe(getName(), () => {
         body: 'new-content',
       });
       expect(res).toEqual('created');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('creates issue if not ensuring only once', async () => {
       httpMock
@@ -1140,7 +1098,6 @@ describe(getName(), () => {
         body: 'new-content',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('does not create issue if ensuring only once', async () => {
       httpMock
@@ -1178,7 +1135,6 @@ describe(getName(), () => {
         once,
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('closes others if ensuring only once', async () => {
       httpMock
@@ -1223,7 +1179,6 @@ describe(getName(), () => {
         once,
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('updates issue', async () => {
       httpMock
@@ -1264,7 +1219,6 @@ describe(getName(), () => {
         body: 'newer-content',
       });
       expect(res).toEqual('updated');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('skips update if unchanged', async () => {
       httpMock
@@ -1302,7 +1256,6 @@ describe(getName(), () => {
         body: 'newer-content',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('deletes if duplicate', async () => {
       httpMock
@@ -1342,7 +1295,6 @@ describe(getName(), () => {
         body: 'newer-content',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('creates issue if reopen flag false and issue is not open', async () => {
       httpMock
@@ -1379,7 +1331,6 @@ describe(getName(), () => {
         shouldReOpen: false,
       });
       expect(res).toEqual('created');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('does not create issue if reopen flag false and issue is already open', async () => {
       httpMock
@@ -1414,7 +1365,6 @@ describe(getName(), () => {
         shouldReOpen: false,
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('ensureIssueClosing()', () => {
@@ -1450,7 +1400,6 @@ describe(getName(), () => {
         .patch('/repos/undefined/issues/2')
         .reply(200);
       await github.ensureIssueClosing('title-2');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('deleteLabel(issueNo, label)', () => {
@@ -1462,7 +1411,6 @@ describe(getName(), () => {
         repository: 'some/repo',
       } as any);
       await github.deleteLabel(42, 'rebase');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('addAssignees(issueNo, assignees)', () => {
@@ -1474,7 +1422,6 @@ describe(getName(), () => {
         repository: 'some/repo',
       } as any);
       await github.addAssignees(42, ['someuser', 'someotheruser']);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('addReviewers(issueNo, reviewers)', () => {
@@ -1490,7 +1437,6 @@ describe(getName(), () => {
         'someotheruser',
         'team:someteam',
       ]);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('ensureComment', () => {
@@ -1515,7 +1461,6 @@ describe(getName(), () => {
         topic: 'some-subject',
         content: 'some\ncontent',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('adds comment if found in closed PR list', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1533,7 +1478,6 @@ describe(getName(), () => {
         topic: 'some-subject',
         content: 'some\ncontent',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('add updates comment if necessary', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1555,7 +1499,6 @@ describe(getName(), () => {
         topic: 'some-subject',
         content: 'some\ncontent',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('skips comment', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1575,7 +1518,6 @@ describe(getName(), () => {
         topic: 'some-subject',
         content: 'some\ncontent',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles comment with no description', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1595,7 +1537,6 @@ describe(getName(), () => {
         topic: null,
         content: '!merge',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('ensureCommentRemoval', () => {
@@ -1613,7 +1554,6 @@ describe(getName(), () => {
         .reply(200);
       await github.initRepo({ repository: 'some/repo', token: 'token' } as any);
       await github.ensureCommentRemoval({ number: 42, topic: 'some-subject' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('deletes comment by content if found', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1632,7 +1572,6 @@ describe(getName(), () => {
         number: 42,
         content: 'some-content',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('findPr(branchName, prTitle, state)', () => {
@@ -1673,7 +1612,6 @@ describe(getName(), () => {
         branchName: 'branch-a',
       });
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns true if not open', async () => {
       httpMock
@@ -1693,7 +1631,6 @@ describe(getName(), () => {
         state: PrState.NotOpen,
       });
       expect(res).toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('caches pr list', async () => {
       httpMock
@@ -1722,7 +1659,6 @@ describe(getName(), () => {
       expect(res).toBeDefined();
       res = await github.findPr({ branchName: 'branch-b' });
       expect(res).not.toBeDefined();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('createPr()', () => {
@@ -1746,7 +1682,6 @@ describe(getName(), () => {
         labels: ['deps', 'renovate'],
       });
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should use defaultBranch', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1764,7 +1699,6 @@ describe(getName(), () => {
         labels: null,
       });
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should create a draftPR if set in the settings', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1783,7 +1717,6 @@ describe(getName(), () => {
         draftPR: true,
       });
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getPr(prNo)', () => {
@@ -1805,7 +1738,6 @@ describe(getName(), () => {
       const pr = await github.getPr(2500);
       expect(pr).toBeDefined();
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should return PR from closed graphql result', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1821,7 +1753,6 @@ describe(getName(), () => {
       const pr = await github.getPr(2499);
       expect(pr).toBeDefined();
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should return null if no PR is returned from GitHub', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1835,7 +1766,6 @@ describe(getName(), () => {
       await github.initRepo({ repository: 'some/repo', token: 'token' } as any);
       const pr = await github.getPr(1234);
       expect(pr).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it(`should return a PR object - 0`, async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1858,7 +1788,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getPr(1234);
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it(`should return a PR object - 1`, async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1881,7 +1810,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getPr(1234);
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it(`should return a PR object - 2`, async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1904,7 +1832,6 @@ describe(getName(), () => {
       } as any);
       const pr = await github.getPr(1234);
       expect(pr).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('updatePr(prNo, title, body)', () => {
@@ -1918,7 +1845,6 @@ describe(getName(), () => {
         prTitle: 'The New Title',
         prBody: 'Hello world again',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should update and close the PR', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1931,7 +1857,6 @@ describe(getName(), () => {
         prBody: 'Hello world again',
         state: PrState.Closed,
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('mergePr(prNo)', () => {
@@ -1947,7 +1872,6 @@ describe(getName(), () => {
         },
       };
       expect(await github.mergePr(pr.number, '')).toBe(true);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should handle merge error', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -1963,7 +1887,6 @@ describe(getName(), () => {
         },
       };
       expect(await github.mergePr(pr.number, '')).toBe(false);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('massageMarkdown(input)', () => {
@@ -1995,7 +1918,6 @@ describe(getName(), () => {
       const input =
         'https://github.com/foo/bar/issues/5 plus also [a link](https://github.com/foo/bar/issues/5)';
       expect(github.massageMarkdown(input)).toEqual(input);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('mergePr(prNo) - autodetection', () => {
@@ -2011,7 +1933,6 @@ describe(getName(), () => {
         },
       };
       expect(await github.mergePr(pr.number, '')).toBe(true);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should try squash after rebase', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -2027,7 +1948,6 @@ describe(getName(), () => {
         },
       };
       await github.mergePr(pr.number, '');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should try merge after squash', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -2047,7 +1967,6 @@ describe(getName(), () => {
         },
       };
       expect(await github.mergePr(pr.number, '')).toBe(true);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should give up', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -2069,7 +1988,6 @@ describe(getName(), () => {
         },
       };
       expect(await github.mergePr(pr.number, '')).toBe(false);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getVulnerabilityAlerts()', () => {
@@ -2077,7 +1995,6 @@ describe(getName(), () => {
       httpMock.scope(githubApiHost).post('/graphql').reply(200, {});
       const res = await github.getVulnerabilityAlerts();
       expect(res).toHaveLength(0);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns array if found', async () => {
       httpMock
@@ -2111,21 +2028,18 @@ describe(getName(), () => {
         });
       const res = await github.getVulnerabilityAlerts();
       expect(res).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns empty if disabled', async () => {
       // prettier-ignore
       httpMock.scope(githubApiHost).post('/graphql').reply(200, {data: { repository: {} }} );
       const res = await github.getVulnerabilityAlerts();
       expect(res).toHaveLength(0);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles network error', async () => {
       // prettier-ignore
       httpMock.scope(githubApiHost).post('/graphql').replyWithError('unknown error');
       const res = await github.getVulnerabilityAlerts();
       expect(res).toHaveLength(0);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -2140,7 +2054,6 @@ describe(getName(), () => {
       });
       const res = await github.getJsonFile('file.json');
       expect(res).toEqual(data);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws on malformed JSON', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -2150,7 +2063,6 @@ describe(getName(), () => {
         content: Buffer.from('!@#').toString('base64'),
       });
       await expect(github.getJsonFile('file.json')).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws on errors', async () => {
       const scope = httpMock.scope(githubApiHost);
@@ -2161,7 +2073,6 @@ describe(getName(), () => {
         .replyWithError('some error');
 
       await expect(github.getJsonFile('file.json')).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

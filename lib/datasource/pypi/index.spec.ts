@@ -37,7 +37,6 @@ describe(getName(), () => {
           depName: 'something',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock.scope(baseUrl).get('/something/json').reply(404);
@@ -48,7 +47,6 @@ describe(getName(), () => {
           depName: 'something',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data', async () => {
       httpMock
@@ -61,7 +59,6 @@ describe(getName(), () => {
           depName: 'azure-cli-monitor',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports custom datasource url', async () => {
       httpMock
@@ -76,7 +73,6 @@ describe(getName(), () => {
         datasource,
         depName: 'azure-cli-monitor',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('sets private if authorization privided', async () => {
@@ -124,7 +120,6 @@ describe(getName(), () => {
         version: '0.2.15',
         releaseTimestamp: '2019-06-18T13:58:55.000Z',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns non-github home_page', async () => {
       httpMock
@@ -145,7 +140,6 @@ describe(getName(), () => {
           })
         ).homepage
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('find url from project_urls', async () => {
       const info = {
@@ -169,7 +163,6 @@ describe(getName(), () => {
       });
       expect(result.sourceUrl).toBe(info.project_urls.Repository);
       expect(result.changelogUrl).toBe(info.project_urls.changelog);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if mismatched name', async () => {
       httpMock
@@ -187,7 +180,6 @@ describe(getName(), () => {
           depName: 'something',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('respects constraints', async () => {
@@ -216,7 +208,6 @@ describe(getName(), () => {
           depName: 'doit',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('process data from simple endpoint', async () => {
       httpMock
@@ -234,7 +225,6 @@ describe(getName(), () => {
           depName: 'dj-database-url',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('process data from +simple endpoint', async () => {
       httpMock
@@ -252,7 +242,6 @@ describe(getName(), () => {
           depName: 'dj-database-url',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('sets private simple if authorization provided', async () => {
       hostRules.add({
@@ -290,7 +279,6 @@ describe(getName(), () => {
           depName: 'image-collector',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for empty response', async () => {
       httpMock
@@ -308,7 +296,6 @@ describe(getName(), () => {
           depName: 'dj-database-url',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404 response from simple endpoint', async () => {
       httpMock
@@ -326,7 +313,6 @@ describe(getName(), () => {
           depName: 'dj-database-url',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for response with no versions', async () => {
       httpMock
@@ -363,7 +349,6 @@ describe(getName(), () => {
         depName: 'dj-database-url',
       });
       expect(result).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('parses data-requires-python and respects constraints from simple endpoint', async () => {
       httpMock
@@ -381,7 +366,6 @@ describe(getName(), () => {
           depName: 'dj-database-url',
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

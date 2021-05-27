@@ -40,7 +40,6 @@ describe(getName(), () => {
           depName: 'hyper-expanse/library-release-workflows',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for missing orb', async () => {
       httpMock
@@ -53,7 +52,6 @@ describe(getName(), () => {
           depName: 'hyper-expanse/library-release-wonkflows',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock.scope(baseUrl).post('/graphql-unstable').reply(404);
@@ -63,7 +61,6 @@ describe(getName(), () => {
           depName: 'hyper-expanse/library-release-workflows',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock.scope(baseUrl).post('/graphql-unstable').replyWithError('');
@@ -73,7 +70,6 @@ describe(getName(), () => {
           depName: 'hyper-expanse/library-release-workflows',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data', async () => {
       httpMock.scope(baseUrl).post('/graphql-unstable').reply(200, orbData);
@@ -83,7 +79,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes homeUrl', async () => {
       orbData.data.orb.homeUrl = 'https://google.com';
@@ -94,7 +89,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res.homepage).toEqual('https://google.com');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

@@ -17,7 +17,6 @@ describe(getName(), () => {
         depName: 'ruby',
       });
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws for empty result', async () => {
       httpMock
@@ -27,7 +26,6 @@ describe(getName(), () => {
       await expect(
         getPkgReleases({ datasource, depName: 'ruby' })
       ).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws for 404', async () => {
@@ -38,7 +36,6 @@ describe(getName(), () => {
       await expect(
         getPkgReleases({ datasource, depName: 'ruby' })
       ).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

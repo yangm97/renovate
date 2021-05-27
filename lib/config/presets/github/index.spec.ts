@@ -31,7 +31,6 @@ describe(getName(), () => {
         githubApiHost
       );
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -47,7 +46,6 @@ describe(getName(), () => {
       await expect(
         github.getPreset({ packageName: 'some/repo' })
       ).rejects.toThrow();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws if no content', async () => {
@@ -59,7 +57,6 @@ describe(getName(), () => {
       await expect(
         github.getPreset({ packageName: 'some/repo' })
       ).rejects.toThrow(PRESET_INVALID_JSON);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('throws if fails to parse', async () => {
@@ -73,7 +70,6 @@ describe(getName(), () => {
       await expect(
         github.getPreset({ packageName: 'some/repo' })
       ).rejects.toThrow(PRESET_INVALID_JSON);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should return default.json', async () => {
@@ -86,7 +82,6 @@ describe(getName(), () => {
 
       const content = await github.getPreset({ packageName: 'some/repo' });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should query preset within the file', async () => {
@@ -101,7 +96,6 @@ describe(getName(), () => {
         presetName: 'somefile/somename',
       });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should query subpreset', async () => {
@@ -119,7 +113,6 @@ describe(getName(), () => {
         presetName: 'somefile/somename/somesubname',
       });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should return custom.json', async () => {
@@ -134,7 +127,6 @@ describe(getName(), () => {
         presetName: 'custom',
       });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should query custom paths', async () => {
@@ -150,7 +142,6 @@ describe(getName(), () => {
         presetPath: 'path',
       });
       expect(content).toEqual({ foo: 'bar' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('should throws not-found', async () => {
@@ -166,7 +157,6 @@ describe(getName(), () => {
           presetName: 'somefile/somename/somesubname',
         })
       ).rejects.toThrow(PRESET_NOT_FOUND);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 
@@ -181,7 +171,6 @@ describe(getName(), () => {
       expect(
         await github.getPresetFromEndpoint('some/repo', 'default', undefined)
       ).toEqual({ from: 'api' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('uses custom endpoint', async () => {
@@ -201,7 +190,6 @@ describe(getName(), () => {
           )
           .catch(() => ({ from: 'api' }))
       ).toEqual({ from: 'api' });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

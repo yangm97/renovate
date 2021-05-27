@@ -68,7 +68,6 @@ describe(getName(), () => {
         'some-new-value'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if errored', async () => {
       httpMock
@@ -82,7 +81,6 @@ describe(getName(), () => {
         'some-new-value'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if empty header', async () => {
       httpMock
@@ -96,7 +94,6 @@ describe(getName(), () => {
         'some-new-value'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns digest', async () => {
       httpMock
@@ -121,7 +118,6 @@ describe(getName(), () => {
         depName: 'some-dep',
       });
       expect(res).toBe('some-digest');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('falls back to body for digest', async () => {
       httpMock
@@ -169,7 +165,6 @@ describe(getName(), () => {
       expect(res).toBe(
         'sha256:b3d6068234f3a18ebeedd2dab81e67b6a192e81192a099df4112ecfc7c3be84f'
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports docker insecure registry', async () => {
       httpMock
@@ -184,7 +179,6 @@ describe(getName(), () => {
         depName: 'some-dep',
       });
       expect(res).toBe('some-digest');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports basic authentication', async () => {
       httpMock
@@ -222,7 +216,6 @@ describe(getName(), () => {
         'some-tag'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('passes credentials to ECR client', async () => {
       httpMock
@@ -305,7 +298,6 @@ describe(getName(), () => {
         'some-tag'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('continues without token if ECR authentication fails', async () => {
       hostRules.find.mockReturnValue({});
@@ -326,7 +318,6 @@ describe(getName(), () => {
         'some-tag'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('continues without token, when no header is present', async () => {
       httpMock
@@ -342,7 +333,6 @@ describe(getName(), () => {
         'some-new-value'
       );
       expect(res).toBe('some-digest');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports scoped names', async () => {
       httpMock
@@ -365,7 +355,6 @@ describe(getName(), () => {
         '8.0.0-alpine'
       );
       expect(res).toBe('some-digest');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should throw error for 429', async () => {
       httpMock.scope(baseUrl).get('/').replyWithError({ statusCode: 429 });
@@ -393,7 +382,6 @@ describe(getName(), () => {
         depName: 'node',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('uses custom registry with registryUrls', async () => {
       const tags = ['1.0.0'];
@@ -424,7 +412,6 @@ describe(getName(), () => {
       };
       const res = await getPkgReleases(config);
       expect(res.releases).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('uses custom registry in depName', async () => {
       const tags = ['1.0.0'];
@@ -443,7 +430,6 @@ describe(getName(), () => {
         depName: 'registry.company.com/node',
       });
       expect(res.releases).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('uses quay api', async () => {
       const tags = [{ name: '5.0.12' }];
@@ -464,7 +450,6 @@ describe(getName(), () => {
       };
       const res = await getPkgReleases(config);
       expect(res.releases).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('uses quay api and test error', async () => {
       httpMock
@@ -499,7 +484,6 @@ describe(getName(), () => {
         datasource: id,
         depName: '123456789.dkr.ecr.us-east-1.amazonaws.com/node',
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('adds library/ prefix for Docker Hub (implicit)', async () => {
       const tags = ['1.0.0'];
@@ -527,7 +511,6 @@ describe(getName(), () => {
         depName: 'node',
       });
       expect(res.releases).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('adds library/ prefix for Docker Hub (explicit)', async () => {
       const tags = ['1.0.0'];
@@ -555,7 +538,6 @@ describe(getName(), () => {
         depName: 'docker.io/node',
       });
       expect(res.releases).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('adds no library/ prefix for other registries', async () => {
       const tags = ['1.0.0'];
@@ -581,7 +563,6 @@ describe(getName(), () => {
         depName: 'k8s.gcr.io/kubernetes-dashboard-amd64',
       });
       expect(res.releases).toHaveLength(1);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null on error', async () => {
       httpMock
@@ -595,7 +576,6 @@ describe(getName(), () => {
         depName: 'my/node',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null if no auth', async () => {
@@ -613,7 +593,6 @@ describe(getName(), () => {
         depName: 'node',
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('supports labels', async () => {

@@ -45,7 +45,6 @@ describe(getName(), () => {
         registryUrls: [...config.registryUrls, 'https://github.com/foo/bar'],
       });
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 401', async () => {
       httpMock
@@ -53,7 +52,6 @@ describe(getName(), () => {
         .get('/all_pods_versions_a_c_b.txt')
         .reply(401);
       expect(await getPkgReleases(config)).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws for 429', async () => {
       httpMock
@@ -61,7 +59,6 @@ describe(getName(), () => {
         .get('/all_pods_versions_a_c_b.txt')
         .reply(429);
       await expect(getPkgReleases(config)).rejects.toThrow(EXTERNAL_HOST_ERROR);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock
@@ -69,7 +66,6 @@ describe(getName(), () => {
         .get('/all_pods_versions_a_c_b.txt')
         .replyWithError('foobar');
       expect(await getPkgReleases(config)).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data from CDN', async () => {
       httpMock
@@ -89,7 +85,6 @@ describe(getName(), () => {
           },
         ],
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data from Github', async () => {
       httpMock
@@ -110,7 +105,6 @@ describe(getName(), () => {
           },
         ],
       });
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

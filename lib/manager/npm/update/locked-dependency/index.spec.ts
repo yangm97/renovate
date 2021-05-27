@@ -131,7 +131,6 @@ describe(getName(), () => {
       const packageLock = JSON.parse(res['package-lock.json']);
       expect(packageLock.dependencies.mime.version).toEqual('1.4.1');
       expect(packageLock.dependencies.express.version).toEqual('4.16.0');
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

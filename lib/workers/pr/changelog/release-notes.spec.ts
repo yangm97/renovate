@@ -108,7 +108,6 @@ describe(getName(), () => {
         'some/yet-other-repository'
       );
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should return release list for gitlab.com project', async () => {
       httpMock
@@ -128,7 +127,6 @@ describe(getName(), () => {
         'some/yet-other-repository'
       );
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('should return release list for self hosted gitlab project', async () => {
       hostRules.find.mockReturnValue({ token: 'some-token' });
@@ -149,7 +147,6 @@ describe(getName(), () => {
         'some/yet-other-repository'
       );
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
   describe('getReleaseNotes()', () => {
@@ -166,7 +163,6 @@ describe(getName(), () => {
         'https://api.github.com/'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it.each([[''], ['v'], ['other-'], ['other_v'], ['other@']])(
       'gets release notes with body',
@@ -189,7 +185,6 @@ describe(getName(), () => {
           'https://api.github.com/'
         );
         expect(res).toMatchSnapshot();
-        expect(httpMock.getTrace()).toMatchSnapshot();
       }
     );
     it.each([[''], ['v'], ['other-']])(
@@ -214,7 +209,6 @@ describe(getName(), () => {
           'https://api.gitlab.com/'
         );
         expect(res).toMatchSnapshot();
-        expect(httpMock.getTrace()).toMatchSnapshot();
       }
     );
     it.each([[''], ['v'], ['other-']])(
@@ -260,7 +254,6 @@ describe(getName(), () => {
         'https://api.github.com/'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles wrong format', async () => {
       httpMock
@@ -280,7 +273,6 @@ describe(getName(), () => {
         'https://api.github.com/'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles bad markdown', async () => {
       httpMock
@@ -300,7 +292,6 @@ describe(getName(), () => {
         'https://api.github.com/'
       );
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('parses angular.js', async () => {
       httpMock
@@ -321,7 +312,6 @@ describe(getName(), () => {
       );
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('parses gitlab.com/gitlab-org/gitter/webapp', async () => {
       jest.setTimeout(0);
@@ -339,7 +329,7 @@ describe(getName(), () => {
         'https://gitlab.com/',
         'https://api.gitlab.com/'
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
     });
@@ -360,7 +350,7 @@ describe(getName(), () => {
         'https://my.custom.domain/',
         'https://my.custom.domain/'
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
     });
@@ -381,7 +371,7 @@ describe(getName(), () => {
         'https://github.com/',
         'https://api.github.com/'
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
     });
@@ -402,7 +392,7 @@ describe(getName(), () => {
         'https://github.com/',
         'https://api.github.com/'
       );
-      expect(httpMock.getTrace()).toMatchSnapshot();
+
       expect(res).not.toBeNull();
       expect(res).toMatchSnapshot();
     });
@@ -427,7 +417,7 @@ describe(getName(), () => {
           'https://api.github.com/'
         );
         versionOneNotes = res;
-        expect(httpMock.getTrace()).toMatchSnapshot();
+
         expect(res).not.toBeNull();
         expect(res).toMatchSnapshot();
       });
@@ -449,7 +439,7 @@ describe(getName(), () => {
           'https://api.github.com/'
         );
         versionTwoNotes = res;
-        expect(httpMock.getTrace()).toMatchSnapshot();
+
         expect(res).not.toBeNull();
         expect(res).toMatchSnapshot();
       });
@@ -471,7 +461,7 @@ describe(getName(), () => {
           'https://gitlab.com/api/v4/'
         );
         versionTwoNotes = res;
-        expect(httpMock.getTrace()).toMatchSnapshot();
+
         expect(res).not.toBeNull();
         expect(res).toMatchSnapshot();
       });

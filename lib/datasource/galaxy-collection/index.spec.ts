@@ -27,7 +27,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'foo.bar' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for remote host error', async () => {
@@ -40,7 +39,6 @@ describe(getName(), () => {
       }
       expect(e).toBeDefined();
       expect(e).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for unexpected data at base', async () => {
@@ -51,7 +49,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'community.kubernetes' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for unexpected data at versions', async () => {
@@ -64,7 +61,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'community.kubernetes' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns only valid versions if a version detail fails', async () => {
@@ -89,17 +85,14 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
       expect(res.releases).toHaveLength(2);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for empty lookup', async () => {
       expect(await getPkgReleases({ datasource, depName: '' })).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for null lookupName ', async () => {
       expect(await getPkgReleases({ datasource, depName: null })).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('returns null for unknown error', async () => {
@@ -110,7 +103,6 @@ describe(getName(), () => {
       expect(
         await getPkgReleases({ datasource, depName: 'foo.bar' })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('processes real data', async () => {
@@ -134,7 +126,6 @@ describe(getName(), () => {
       expect(res).not.toBeNull();
       expect(res).toBeDefined();
       expect(res.releases).toHaveLength(3);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

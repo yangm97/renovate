@@ -124,7 +124,6 @@ describe(getName(), () => {
       .reply(200, { name: '@myco/test' });
     setNpmrc(npmrc);
     await getDependency('@myco/test');
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
 
   it('uses hostRules token auth', async () => {
@@ -145,7 +144,6 @@ describe(getName(), () => {
       .reply(200, { name: 'renovate' });
     setNpmrc(npmrc);
     await getDependency('renovate');
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
 
   it('uses hostRules basic token auth', async () => {
@@ -167,7 +165,6 @@ describe(getName(), () => {
       .reply(200, { name: 'renovate' });
     setNpmrc(npmrc);
     await getDependency('renovate');
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
 
   it('cover all paths', async () => {
@@ -228,7 +225,5 @@ describe(getName(), () => {
       .get('/npm-error-402')
       .reply(402);
     expect(await getDependency('npm-error-402')).toBeNull();
-
-    expect(httpMock.getTrace()).toMatchSnapshot();
   });
 });

@@ -101,7 +101,6 @@ describe(getName(), () => {
           ...upgrade,
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles empty GitLab tags response', async () => {
       httpMock
@@ -119,7 +118,6 @@ describe(getName(), () => {
           ...upgrade,
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('uses GitLab tags with error', async () => {
       httpMock
@@ -137,7 +135,6 @@ describe(getName(), () => {
           ...upgrade,
         })
       ).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('handles no sourceUrl', async () => {
       expect(

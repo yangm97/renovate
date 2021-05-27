@@ -42,7 +42,6 @@ describe(getName(), () => {
           registryUrls: ['https://example-repository.com'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for missing response body', async () => {
       httpMock
@@ -56,7 +55,6 @@ describe(getName(), () => {
           registryUrls: ['https://example-repository.com'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock
@@ -70,7 +68,6 @@ describe(getName(), () => {
           registryUrls: ['https://example-repository.com'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('throws for 5xx', async () => {
       httpMock
@@ -89,7 +86,6 @@ describe(getName(), () => {
       }
       expect(e).toBeDefined();
       expect(e).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock
@@ -103,7 +99,6 @@ describe(getName(), () => {
           registryUrls: ['https://example-repository.com'],
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if index.yaml in response is empty', async () => {
       httpMock
@@ -116,7 +111,6 @@ describe(getName(), () => {
         registryUrls: ['https://example-repository.com'],
       });
       expect(releases).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if index.yaml in response is invalid', async () => {
       const res = {
@@ -135,7 +129,6 @@ describe(getName(), () => {
         registryUrls: ['https://example-repository.com'],
       });
       expect(releases).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null if lookupName is not in index.yaml', async () => {
       httpMock
@@ -148,7 +141,6 @@ describe(getName(), () => {
         registryUrls: ['https://example-repository.com'],
       });
       expect(releases).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns list of versions for normal response', async () => {
       httpMock
@@ -162,7 +154,6 @@ describe(getName(), () => {
       });
       expect(releases).not.toBeNull();
       expect(releases).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('adds trailing slash to subdirectories', async () => {
       httpMock

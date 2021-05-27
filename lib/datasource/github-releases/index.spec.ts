@@ -50,7 +50,6 @@ describe(getName(), () => {
       expect(
         res.releases.find((release) => release.version === '2.0.0').isStable
       ).toBe(false);
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('supports ghe', async () => {
       const lookupName = 'some/dep';
@@ -64,7 +63,6 @@ describe(getName(), () => {
       });
       httpMock.getTrace();
       expect(res).toMatchSnapshot();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

@@ -30,7 +30,6 @@ describe(getName(), () => {
           depName: 'azurerm',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for 404', async () => {
       httpMock
@@ -46,7 +45,6 @@ describe(getName(), () => {
           depName: 'azurerm',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for unknown error', async () => {
       httpMock
@@ -62,7 +60,6 @@ describe(getName(), () => {
           depName: 'azurerm',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes real data', async () => {
       httpMock
@@ -77,7 +74,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
 
     it('processes real data from lookupName', async () => {
@@ -95,7 +91,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('processes data with alternative backend', async () => {
       httpMock
@@ -117,7 +112,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).not.toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('simulate failing secondary release source', async () => {
       httpMock
@@ -136,7 +130,6 @@ describe(getName(), () => {
       });
       expect(res).toMatchSnapshot();
       expect(res).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
     it('returns null for error in service discovery', async () => {
       httpMock.scope(primaryUrl).get('/.well-known/terraform.json').reply(404);
@@ -147,7 +140,6 @@ describe(getName(), () => {
           depName: 'azurerm',
         })
       ).toBeNull();
-      expect(httpMock.getTrace()).toMatchSnapshot();
     });
   });
 });

@@ -35,7 +35,7 @@ Note: if you self-host Renovate, and have a self-hosted registry which _doesn't_
 Renovate supports config presets, including those which are private.
 
 Although npm presets were the first type supported, they are now deprecated and it is recommend that all users migrate to git-hosted "local" presets instead.
-However if you do still use them, private modules should work if you configure the `npmrc` file including token credentials in your bot admin config.
+However if you do still use them, private modules should work if you configure the `npmrc` file including token credentials in your bot global config.
 Credentials stored on disk (e.g. in `~/.npmrc`) are no longer supported.
 
 The recommended way of using local presets is to configure then using "local" presets, e.g. `"extends": ["local>myorg/renovate-config"]`, and ensure that the platform token has access to that repo.
@@ -199,10 +199,10 @@ The WhiteSource Renovate App does not run using GitHub Actions, but such secrets
 - The app would be granted access to _all_ the repository/org secrets, not just the ones you want
 - If Renovate wants access to such secrets, it would need to ask for them from every user, not just the ones who want to use this approach (GitHub does not support the concept of optional permissions for Apps, so people do not have the option to decline)
 
-## Admin/Bot config vs User/Repository config for Self-hosted users
+## Global config vs Repo config for Self-hosted users
 
-"Admin/Bot config" refers to the config which the Renovate Bot administrator provides at bot startup, e.g. using environment variables, CLI parameters, or the `config.js` configuration file.
-User/Repository config refers to the in-repository config file which defaults to `renovate.json` but has a large number of alternative filenames supported.
+"Global config" refers to the config which the Renovate Bot administrator provides at bot startup, e.g. using environment variables, CLI parameters, or the `config.js` configuration file.
+"Repository config" (or "repo config" for short) refers to the in-repository config file which defaults to `renovate.json` but has a large number of alternative filenames supported.
 
 If there is a need to supply custom rules for certain repository, it can still be done using the `config.js` file and the `repositories` array.
 
@@ -215,7 +215,7 @@ For instructions on this, see the above section on encrypting secrets for the Wh
 - Use the resulting HTML encrypt page to encrypt secrets for your app before adding them to user/repository config
 - Configure the app to run with `privateKey` set to the private key you generated above
 
-Note: Encrypted values can't be used in the "Admin/Bot config".
+Note: Encrypted values can't be used in the global config.
 
 ### hostRules configuration using environment variables
 

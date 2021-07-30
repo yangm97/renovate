@@ -28,7 +28,7 @@ module.exports = {
 
 In the `renovate.json` file, define the commands and files to be included in the final commit.
 
-The command to install dependencies (`npm ci --ignore-scripts`) is necessary because, by default, the installation of dependencies is skipped (see the `skipInstalls` admin option).
+The command to install dependencies (`npm ci --ignore-scripts`) is necessary because, by default, the installation of dependencies is skipped (see the `skipInstalls` global-only option).
 
 ```json
 {
@@ -368,7 +368,7 @@ If this is set to `false`, it means that Renovate won't require a config file su
 
 ## secrets
 
-Secrets may be configured by a bot admin in `config.js`, which will then make them available for templating within repository configs.
+Secrets may be configured in global config, which will then make them available for templating within repository configs.
 For example, to configure a `GOOGLE_TOKEN` to be accessible by all repositories:
 
 ```js

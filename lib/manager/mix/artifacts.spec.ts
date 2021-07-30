@@ -11,7 +11,7 @@ jest.mock('child_process');
 jest.mock('../../util/exec/env');
 jest.mock('../../util/fs');
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
 };
@@ -24,7 +24,7 @@ describe(getName(), () => {
     jest.resetModules();
 
     env.getChildProcessEnv.mockReturnValue(envMock.basic);
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
   });
 
   afterEach(() => {
@@ -81,7 +81,7 @@ describe(getName(), () => {
 
   it('returns updated mix.lock', async () => {
     jest.spyOn(docker, 'removeDanglingContainers').mockResolvedValueOnce();
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readLocalFile.mockResolvedValueOnce('Old mix.lock');
     fs.getSiblingFileName.mockReturnValueOnce('mix.lock');
     const execSnapshots = mockExecAll(exec);
@@ -98,7 +98,7 @@ describe(getName(), () => {
   });
 
   it('returns updated mix.lock in subdir', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.getSiblingFileName.mockReturnValueOnce('subdir/mix.lock');
     mockExecAll(exec);
     expect(

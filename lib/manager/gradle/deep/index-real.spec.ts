@@ -21,13 +21,13 @@ describe(getName(), () => {
     let workingDir: DirectoryResult;
     let testRunConfig: ExtractConfig;
     let successFile: string;
-    let adminConfig: RepoGlobalConfig;
+    let repoGlobalConfig: RepoGlobalConfig;
 
     beforeEach(async () => {
       workingDir = await tmp.dir({ unsafeCleanup: true });
       successFile = '';
-      adminConfig = { localDir: workingDir.path };
-      setRepoGlobalConfig(adminConfig);
+      repoGlobalConfig = { localDir: workingDir.path };
+      setRepoGlobalConfig(repoGlobalConfig);
       testRunConfig = { ...baseConfig };
       await fsExtra.copy(`${fixtures}/minimal-project`, workingDir.path);
       await fsExtra.copy(`${fixtures}/gradle-wrappers/6`, workingDir.path);

@@ -30,7 +30,7 @@ const config: UpdateArtifactsConfig = {
   ignoreScripts: false,
 };
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   allowScripts: false,
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
@@ -50,7 +50,7 @@ describe('.updateArtifacts()', () => {
     env.getChildProcessEnv.mockReturnValue(envMock.basic);
     docker.resetPrefetchedImages();
     hostRules.clear();
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     fs.ensureCacheDir.mockResolvedValue('/tmp/renovate/cache/others/composer');
   });
   afterEach(() => {
@@ -71,7 +71,7 @@ describe('.updateArtifacts()', () => {
     const execSnapshots = mockExecAll(exec);
     fs.readLocalFile.mockReturnValueOnce('Current composer.lock' as any);
     git.getRepoStatus.mockResolvedValue(repoStatus);
-    setRepoGlobalConfig({ ...adminConfig, allowScripts: true });
+    setRepoGlobalConfig({ ...repoGlobalConfig, allowScripts: true });
     expect(
       await composer.updateArtifacts({
         packageFileName: 'composer.json',
@@ -200,7 +200,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('supports docker mode', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readLocalFile.mockResolvedValueOnce('Current composer.lock' as any);
 
     const execSnapshots = mockExecAll(exec);
@@ -231,7 +231,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('supports global mode', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'global' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'global' });
     fs.readLocalFile.mockResolvedValueOnce('Current composer.lock' as any);
     const execSnapshots = mockExecAll(exec);
     fs.readLocalFile.mockReturnValueOnce('New composer.lock' as any);

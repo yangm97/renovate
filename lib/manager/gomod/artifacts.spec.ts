@@ -36,7 +36,7 @@ require gopkg.in/russross/blackfriday.v1 v1.0.0
 replace github.com/pkg/errors => ../errors
 `;
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
   cacheDir: join('/tmp/renovate/cache'),
@@ -62,7 +62,7 @@ describe('.updateArtifacts()', () => {
     delete process.env.GIT_CONFIG_COUNT;
     process.env.GOPRIVATE = 'private.example.com/*';
     env.getChildProcessEnv.mockReturnValue({ ...envMock.basic, ...goEnv });
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     docker.resetPrefetchedImages();
   });
 
@@ -158,7 +158,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('supports docker mode without credentials', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readFile.mockResolvedValueOnce('Current go.sum' as any);
     fs.readFile.mockResolvedValueOnce(null as any); // vendor modules filename
     const execSnapshots = mockExecAll(exec);
@@ -179,7 +179,7 @@ describe('.updateArtifacts()', () => {
 
   it('supports docker mode passthrough of GIT_CONFIG_COUNT', async () => {
     process.env.GIT_CONFIG_COUNT = '2';
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readFile.mockResolvedValueOnce('Current go.sum' as any);
     fs.readFile.mockResolvedValueOnce(null as any); // vendor modules filename
     const execSnapshots = mockExecAll(exec);
@@ -200,7 +200,7 @@ describe('.updateArtifacts()', () => {
 
   it('supports docker mode without GORPIVATE', async () => {
     delete process.env.GOPRIVATE;
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readFile.mockResolvedValueOnce('Current go.sum' as any);
     fs.readFile.mockResolvedValueOnce(null as any); // vendor modules filename
     const execSnapshots = mockExecAll(exec);
@@ -221,7 +221,7 @@ describe('.updateArtifacts()', () => {
 
   it('ignore docker mode passthrough of invalid GIT_CONFIG_COUNT', async () => {
     process.env.GIT_CONFIG_COUNT = 'not-a-number';
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readFile.mockResolvedValueOnce('Current go.sum' as any);
     fs.readFile.mockResolvedValueOnce(null as any); // vendor modules filename
     const execSnapshots = mockExecAll(exec);
@@ -241,7 +241,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('supports global mode', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'global' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'global' });
     fs.readFile.mockResolvedValueOnce('Current go.sum' as any);
     fs.readFile.mockResolvedValueOnce(null as any); // vendor modules filename
     const execSnapshots = mockExecAll(exec);
@@ -261,7 +261,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('supports docker mode with credentials', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     process.env.GOPRIVATE = 'github.com';
     hostRules.find.mockReturnValueOnce({
       token: 'some-token',
@@ -286,7 +286,7 @@ describe('.updateArtifacts()', () => {
 
   it('supports docker mode with credentials with golang.registryUrls', async () => {
     delete process.env.GOPRIVATE;
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     hostRules.find.mockReturnValueOnce({
       token: 'some-token',
     });
@@ -317,7 +317,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('supports docker mode with custom credentials', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     const mockValues = [
       {
         token: 'some-github-enterprise-token',
@@ -369,7 +369,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('supports docker mode with goModTidy', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     hostRules.find.mockReturnValueOnce({});
     fs.readFile.mockResolvedValueOnce('Current go.sum' as any);
     fs.readFile.mockResolvedValueOnce(null as any); // vendor modules filename

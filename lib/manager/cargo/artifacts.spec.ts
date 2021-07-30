@@ -22,7 +22,7 @@ const env = mocked(_env);
 
 const config: UpdateArtifactsConfig = {};
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
 };
@@ -33,7 +33,7 @@ describe('.updateArtifacts()', () => {
     jest.resetModules();
 
     env.getChildProcessEnv.mockReturnValue(envMock.basic);
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     docker.resetPrefetchedImages();
   });
   afterEach(() => {
@@ -149,7 +149,7 @@ describe('.updateArtifacts()', () => {
 
   it('returns updated Cargo.lock with docker', async () => {
     fs.stat.mockResolvedValueOnce({ name: 'Cargo.lock' } as any);
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     git.getFile.mockResolvedValueOnce('Old Cargo.lock');
     const execSnapshots = mockExecAll(exec);
     fs.readFile.mockResolvedValueOnce('New Cargo.lock' as any);

@@ -14,7 +14,7 @@ jest.mock('../../util/git');
 
 const fixtures = resolve(__dirname, './__fixtures__');
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: resolve(fixtures, './testFiles'),
 };
 
@@ -42,7 +42,7 @@ describe(getName(), () => {
 
     beforeEach(() => {
       jest.resetAllMocks();
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
     });
 
     afterEach(async () => {
@@ -164,7 +164,7 @@ describe(getName(), () => {
 
     it('gradlew failed', async () => {
       const wrongCmdConfig = {
-        ...adminConfig,
+        ...repoGlobalConfig,
         localDir: resolve(fixtures, './wrongCmd'),
       };
 
@@ -238,7 +238,7 @@ describe(getName(), () => {
 
       expect(
         await readString(
-          adminConfig.localDir,
+          repoGlobalConfig.localDir,
           `./gradle/wrapper/gradle-wrapper.properties`
         )
       ).toEqual(newContent);

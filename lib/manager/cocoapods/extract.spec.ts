@@ -6,14 +6,14 @@ import { extractPackageFile } from '.';
 const simplePodfile = loadFixture('Podfile.simple');
 const complexPodfile = loadFixture('Podfile.complex');
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: '',
 };
 
 describe(getName(), () => {
   describe('extractPackageFile()', () => {
     it('extracts all dependencies', async () => {
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
       const simpleResult = (await extractPackageFile(simplePodfile, 'Podfile'))
         .deps;
       expect(simpleResult).toMatchSnapshot();

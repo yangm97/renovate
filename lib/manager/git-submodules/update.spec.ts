@@ -13,13 +13,13 @@ const simpleGit: any = _simpleGit;
 describe(getName(), () => {
   describe('updateDependency', () => {
     let upgrade: Upgrade;
-    let adminConfig: RepoGlobalConfig;
+    let repoGlobalConfig: RepoGlobalConfig;
     beforeAll(async () => {
       upgrade = { depName: 'renovate' };
 
       const tmpDir = await dir();
-      adminConfig = { localDir: join(tmpDir.path) };
-      setRepoGlobalConfig(adminConfig);
+      repoGlobalConfig = { localDir: join(tmpDir.path) };
+      setRepoGlobalConfig(repoGlobalConfig);
     });
     afterAll(() => {
       setRepoGlobalConfig();

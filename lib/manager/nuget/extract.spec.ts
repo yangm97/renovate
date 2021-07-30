@@ -7,14 +7,14 @@ import { extractPackageFile } from './extract';
 
 const config: ExtractConfig = {};
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: upath.resolve('lib/manager/nuget/__fixtures__'),
 };
 
 describe(getName(), () => {
   describe('extractPackageFile()', () => {
     beforeEach(() => {
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
     });
     afterEach(() => {
       setRepoGlobalConfig();

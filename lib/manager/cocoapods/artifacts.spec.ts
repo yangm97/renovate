@@ -27,7 +27,7 @@ delete process.env.CP_HOME_DIR;
 
 const config: UpdateArtifactsConfig = {};
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: join('/tmp/github/some/repo'),
   cacheDir: join('/tmp/cache'),
 };
@@ -37,7 +37,7 @@ describe('.updateArtifacts()', () => {
     jest.resetAllMocks();
     env.getChildProcessEnv.mockReturnValue(envMock.basic);
 
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
 
     datasource.getPkgReleases.mockResolvedValue({
       releases: [
@@ -124,7 +124,7 @@ describe('.updateArtifacts()', () => {
   });
   it('returns updated Podfile', async () => {
     const execSnapshots = mockExecAll(exec);
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readFile.mockResolvedValueOnce('Old Podfile' as any);
     git.getRepoStatus.mockResolvedValueOnce({
       modified: ['Podfile.lock'],
@@ -142,7 +142,7 @@ describe('.updateArtifacts()', () => {
   });
   it('returns updated Podfile and Pods files', async () => {
     const execSnapshots = mockExecAll(exec);
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     fs.readFile.mockResolvedValueOnce('Old Manifest.lock' as any);
     fs.readFile.mockResolvedValueOnce('New Podfile' as any);
     fs.readFile.mockResolvedValueOnce('Pods manifest' as any);
@@ -195,7 +195,7 @@ describe('.updateArtifacts()', () => {
   it('dynamically selects Docker image tag', async () => {
     const execSnapshots = mockExecAll(exec);
 
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
 
     fs.readFile.mockResolvedValueOnce('COCOAPODS: 1.2.4' as any);
 
@@ -216,7 +216,7 @@ describe('.updateArtifacts()', () => {
   it('falls back to the `latest` Docker image tag', async () => {
     const execSnapshots = mockExecAll(exec);
 
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
 
     fs.readFile.mockResolvedValueOnce('COCOAPODS: 1.2.4' as any);
     datasource.getPkgReleases.mockResolvedValueOnce({

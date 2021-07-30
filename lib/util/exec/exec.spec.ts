@@ -22,7 +22,7 @@ interface TestInput {
   inOpts: ExecOptions;
   outCmd: string[];
   outOpts: RawExecOptions[];
-  adminConfig?: Partial<RepoGlobalConfig>;
+  repoGlobalConfig?: Partial<RepoGlobalConfig>;
 }
 
 describe(getName(), () => {
@@ -177,7 +177,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { exposeAllEnv: true },
+        repoGlobalConfig: { exposeAllEnv: true },
       },
     ],
 
@@ -203,7 +203,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -230,7 +230,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -265,7 +265,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -285,7 +285,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -315,7 +315,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -341,7 +341,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -367,7 +367,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -393,7 +393,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           dockerUser: 'foobar',
           binarySource: 'docker',
         },
@@ -422,7 +422,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           dockerImagePrefix: 'ghcr.io/renovatebot',
           binarySource: 'docker',
         },
@@ -451,7 +451,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           dockerChildPrefix: 'myprefix_',
           binarySource: 'docker',
         },
@@ -486,7 +486,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -518,7 +518,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -540,7 +540,7 @@ describe(getName(), () => {
             maxBuffer: 1024,
           },
         ],
-        adminConfig: { binarySource: 'docker' },
+        repoGlobalConfig: { binarySource: 'docker' },
       },
     ],
 
@@ -560,7 +560,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           customEnvVariables: {
             CUSTOM_KEY: 'CUSTOM_VALUE',
           },
@@ -585,7 +585,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           customEnvVariables: {
             CUSTOM_KEY: 'CUSTOM_OVERRIDEN_VALUE',
           },
@@ -616,7 +616,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           customEnvVariables: {
             CUSTOM_KEY: 'CUSTOM_VALUE',
           },
@@ -647,7 +647,7 @@ describe(getName(), () => {
             maxBuffer: 10485760,
           },
         ],
-        adminConfig: {
+        repoGlobalConfig: {
           customEnvVariables: {
             CUSTOM_KEY: 'CUSTOM_OVERRIDEN_VALUE',
           },
@@ -664,7 +664,7 @@ describe(getName(), () => {
       inOpts,
       outCmd: outCommand,
       outOpts,
-      adminConfig = {} as any,
+      repoGlobalConfig = {} as any,
     } = testOpts;
 
     process.env = procEnv;
@@ -677,7 +677,7 @@ describe(getName(), () => {
       callback(null, { stdout: '', stderr: '' });
       return undefined;
     });
-    setRepoGlobalConfig({ cacheDir, localDir: cwd, ...adminConfig });
+    setRepoGlobalConfig({ cacheDir, localDir: cwd, ...repoGlobalConfig });
     await exec(cmd as string, inOpts);
 
     expect(actualCmd).toEqual(outCommand);

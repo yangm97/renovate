@@ -27,11 +27,11 @@ jest.mock('../../util/exec/env');
 const exec: jest.Mock<typeof _exec> = _exec as any;
 const fixtures = resolve(__dirname, './__fixtures__');
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: resolve(fixtures, './testFiles'),
 };
 
-const dockerAdminConfig = { ...adminConfig, binarySource: 'docker' };
+const dockerGlobalConfig = { ...repoGlobalConfig, binarySource: 'docker' };
 
 const config: UpdateArtifactsConfig = {
   newValue: '5.6.4',
@@ -54,7 +54,7 @@ describe(getName(), () => {
       LC_ALL: 'en_US',
     });
 
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     resetPrefetchedImages();
 
     fs.readLocalFile.mockResolvedValue('test');
@@ -100,7 +100,7 @@ describe(getName(), () => {
   });
 
   it('gradlew not found', async () => {
-    setRepoGlobalConfig({ ...adminConfig, localDir: 'some-dir' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, localDir: 'some-dir' });
     const res = await dcUpdate.updateArtifacts({
       packageFileName: 'gradle-wrapper.properties',
       updatedDeps: [],
@@ -152,7 +152,7 @@ describe(getName(), () => {
       newPackageFileContent: `distributionSha256Sum=336b6898b491f6334502d8074a6b8c2d73ed83b92123106bd4bf837f04111043\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-6.3-bin.zip`,
       config: {
         ...config,
-        ...dockerAdminConfig,
+        ...dockerGlobalConfig,
       },
     });
 

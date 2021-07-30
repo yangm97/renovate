@@ -6,11 +6,11 @@ import { extractAllPackageFiles } from './extract';
 
 const config: ExtractConfig = {};
 
-const adminConfig: RepoGlobalConfig = { localDir: '' };
+const repoGlobalConfig: RepoGlobalConfig = { localDir: '' };
 
 describe(getName(), () => {
   beforeEach(() => {
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
   });
 
   afterEach(() => {

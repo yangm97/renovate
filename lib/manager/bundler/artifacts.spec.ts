@@ -26,7 +26,7 @@ jest.mock('../../../lib/util/git');
 jest.mock('../../../lib/util/host-rules');
 jest.mock('./host-rules');
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
   cacheDir: join('/tmp/cache'),
@@ -45,7 +45,7 @@ describe('bundler.updateArtifacts()', () => {
     bundlerHostRules.findAllAuthenticatable.mockReturnValue([]);
     docker.resetPrefetchedImages();
 
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     fs.ensureCacheDir.mockResolvedValue('/tmp/cache/others/gem');
   });
   afterEach(() => {
@@ -99,7 +99,7 @@ describe('bundler.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('works explicit global binarySource', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'global' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'global' });
     fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
     fs.writeLocalFile.mockResolvedValueOnce(null as never);
     fs.readLocalFile.mockResolvedValueOnce(null);
@@ -121,7 +121,7 @@ describe('bundler.updateArtifacts()', () => {
   describe('Docker', () => {
     beforeEach(() => {
       setRepoGlobalConfig({
-        ...adminConfig,
+        ...repoGlobalConfig,
         binarySource: 'docker',
       });
     });
@@ -152,7 +152,7 @@ describe('bundler.updateArtifacts()', () => {
       expect(execSnapshots).toMatchSnapshot();
     });
     it('constraints options', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
       fs.writeLocalFile.mockResolvedValueOnce(null as never);
       datasource.getPkgReleases.mockResolvedValueOnce({
@@ -184,7 +184,7 @@ describe('bundler.updateArtifacts()', () => {
       expect(execSnapshots).toMatchSnapshot();
     });
     it('invalid constraints options', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
       fs.writeLocalFile.mockResolvedValueOnce(null as never);
       datasource.getPkgReleases.mockResolvedValueOnce({
@@ -217,7 +217,7 @@ describe('bundler.updateArtifacts()', () => {
     });
 
     it('injects bundler host configuration environment variables', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
       fs.writeLocalFile.mockResolvedValueOnce(null as never);
       fs.readLocalFile.mockResolvedValueOnce('1.2.0');
@@ -257,7 +257,7 @@ describe('bundler.updateArtifacts()', () => {
     });
 
     it('injects bundler host configuration as command with bundler < 2', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
       fs.writeLocalFile.mockResolvedValueOnce(null as never);
       fs.readLocalFile.mockResolvedValueOnce('1.2.0');
@@ -302,7 +302,7 @@ describe('bundler.updateArtifacts()', () => {
     });
 
     it('injects bundler host configuration as command with bundler >= 2', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
       fs.writeLocalFile.mockResolvedValueOnce(null as never);
       fs.readLocalFile.mockResolvedValueOnce('1.2.0');
@@ -347,7 +347,7 @@ describe('bundler.updateArtifacts()', () => {
     });
 
     it('injects bundler host configuration as command with bundler == latest', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       fs.readLocalFile.mockResolvedValueOnce('Current Gemfile.lock');
       fs.writeLocalFile.mockResolvedValueOnce(null as never);
       fs.readLocalFile.mockResolvedValueOnce('1.2.0');

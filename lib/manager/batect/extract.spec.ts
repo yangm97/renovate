@@ -27,7 +27,7 @@ function createGitDependency(repo: string, version: string): PackageDependency {
   };
 }
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: '',
 };
 
@@ -36,7 +36,7 @@ const config: ExtractConfig = {};
 describe(getName(), () => {
   describe('extractPackageFile()', () => {
     beforeEach(() => {
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
     });
 
     afterEach(() => {

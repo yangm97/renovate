@@ -66,7 +66,7 @@ const sanitize = mocked(_sanitize);
 const fs = mocked(_fs);
 const limits = mocked(_limits);
 
-const adminConfig: RepoGlobalConfig = { localDir: '', cacheDir: '' };
+const repoGlobalConfig: RepoGlobalConfig = { localDir: '', cacheDir: '' };
 
 describe(getName(), () => {
   describe('processBranch', () => {
@@ -99,7 +99,7 @@ describe(getName(), () => {
           body: '',
         },
       });
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
       sanitize.sanitize.mockImplementation((input) => input);
     });
     afterEach(() => {
@@ -416,7 +416,7 @@ describe(getName(), () => {
       git.branchExists.mockReturnValue(true);
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
       automerge.tryBranchAutomerge.mockResolvedValueOnce('automerged');
-      setRepoGlobalConfig({ ...adminConfig, dryRun: true });
+      setRepoGlobalConfig({ ...repoGlobalConfig, dryRun: true });
       await branchWorker.processBranch(config);
       expect(automerge.tryBranchAutomerge).toHaveBeenCalledTimes(1);
       expect(prWorker.ensurePr).toHaveBeenCalledTimes(0);
@@ -712,7 +712,7 @@ describe(getName(), () => {
       checkExisting.prAlreadyExisted.mockResolvedValueOnce({
         state: PrState.Closed,
       } as Pr);
-      setRepoGlobalConfig({ ...adminConfig, dryRun: true });
+      setRepoGlobalConfig({ ...repoGlobalConfig, dryRun: true });
       expect(await branchWorker.processBranch(config)).toMatchSnapshot();
     });
 
@@ -722,7 +722,7 @@ describe(getName(), () => {
         state: PrState.Open,
       } as Pr);
       git.isBranchModified.mockResolvedValueOnce(true);
-      setRepoGlobalConfig({ ...adminConfig, dryRun: true });
+      setRepoGlobalConfig({ ...repoGlobalConfig, dryRun: true });
       expect(await branchWorker.processBranch(config)).toMatchSnapshot();
     });
 
@@ -744,7 +744,7 @@ describe(getName(), () => {
       git.isBranchModified.mockResolvedValueOnce(true);
       schedule.isScheduledNow.mockReturnValueOnce(false);
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
-      setRepoGlobalConfig({ ...adminConfig, dryRun: true });
+      setRepoGlobalConfig({ ...repoGlobalConfig, dryRun: true });
       expect(
         await branchWorker.processBranch({
           ...config,
@@ -776,7 +776,7 @@ describe(getName(), () => {
         pr: {},
       } as EnsurePrResult);
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
-      setRepoGlobalConfig({ ...adminConfig, dryRun: true });
+      setRepoGlobalConfig({ ...repoGlobalConfig, dryRun: true });
       expect(
         await branchWorker.processBranch({
           ...config,
@@ -851,7 +851,7 @@ describe(getName(), () => {
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
 
       setRepoGlobalConfig({
-        ...adminConfig,
+        ...repoGlobalConfig,
         allowedPostUpgradeCommands: ['^echo {{{versioning}}}$'],
         allowPostUpgradeCommandTemplating: true,
         exposeAllEnv: true,
@@ -928,7 +928,7 @@ describe(getName(), () => {
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
 
       setRepoGlobalConfig({
-        ...adminConfig,
+        ...repoGlobalConfig,
         allowedPostUpgradeCommands: ['^exit 1$'],
         allowPostUpgradeCommandTemplating: true,
         exposeAllEnv: true,
@@ -997,7 +997,7 @@ describe(getName(), () => {
       schedule.isScheduledNow.mockReturnValueOnce(false);
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
       setRepoGlobalConfig({
-        ...adminConfig,
+        ...repoGlobalConfig,
         allowedPostUpgradeCommands: ['^echo {{{versioning}}}$'],
         allowPostUpgradeCommandTemplating: false,
         exposeAllEnv: true,
@@ -1077,7 +1077,7 @@ describe(getName(), () => {
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
 
       setRepoGlobalConfig({
-        ...adminConfig,
+        ...repoGlobalConfig,
         allowedPostUpgradeCommands: ['^echo {{{depName}}}$'],
         allowPostUpgradeCommandTemplating: true,
         exposeAllEnv: true,
@@ -1211,7 +1211,7 @@ describe(getName(), () => {
       commit.commitFilesToBranch.mockResolvedValueOnce(null);
 
       setRepoGlobalConfig({
-        ...adminConfig,
+        ...repoGlobalConfig,
         allowedPostUpgradeCommands: ['^echo hardcoded-string$'],
         allowPostUpgradeCommandTemplating: true,
         trustLevel: 'high',

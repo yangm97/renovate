@@ -22,12 +22,12 @@ const fs: jest.Mocked<typeof _fs> = _fs as any;
 const exec: jest.Mock<typeof _exec> = _exec as any;
 const env = mocked(_env);
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
   cacheDir: join('/tmp/renovate/cache'),
 };
-const dockerAdminConfig = { ...adminConfig, binarySource: 'docker' };
+const dockerGlobalConfig = { ...repoGlobalConfig, binarySource: 'docker' };
 
 const config: UpdateArtifactsConfig = {};
 const lockMaintenanceConfig = { ...config, isLockFileMaintenance: true };
@@ -42,7 +42,7 @@ describe('.updateArtifacts()', () => {
       LC_ALL: 'en_US',
     });
 
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     docker.resetPrefetchedImages();
     pipFileLock = {
       _meta: { requires: {} },
@@ -108,7 +108,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('supports docker mode', async () => {
-    setRepoGlobalConfig(dockerAdminConfig);
+    setRepoGlobalConfig(dockerGlobalConfig);
     pipFileLock._meta.requires.python_version = '3.7';
     fs.readFile.mockResolvedValueOnce(JSON.stringify(pipFileLock) as any);
     const execSnapshots = mockExecAll(exec);
@@ -158,7 +158,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('uses pipenv version from Pipfile', async () => {
-    setRepoGlobalConfig(dockerAdminConfig);
+    setRepoGlobalConfig(dockerGlobalConfig);
     pipFileLock.default.pipenv.version = '==2020.8.13';
     fs.readFile.mockResolvedValueOnce(JSON.stringify(pipFileLock) as any);
     const execSnapshots = mockExecAll(exec);
@@ -177,7 +177,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('uses pipenv version from Pipfile dev packages', async () => {
-    setRepoGlobalConfig(dockerAdminConfig);
+    setRepoGlobalConfig(dockerGlobalConfig);
     pipFileLock.develop.pipenv.version = '==2020.8.13';
     fs.readFile.mockResolvedValueOnce(JSON.stringify(pipFileLock) as any);
     const execSnapshots = mockExecAll(exec);
@@ -196,7 +196,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('uses pipenv version from config', async () => {
-    setRepoGlobalConfig(dockerAdminConfig);
+    setRepoGlobalConfig(dockerGlobalConfig);
     pipFileLock.default.pipenv.version = '==2020.8.13';
     fs.readFile.mockResolvedValueOnce(JSON.stringify(pipFileLock) as any);
     const execSnapshots = mockExecAll(exec);

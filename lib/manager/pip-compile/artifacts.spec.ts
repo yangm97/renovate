@@ -22,12 +22,12 @@ const fs: jest.Mocked<typeof _fs> = _fs as any;
 const exec: jest.Mock<typeof _exec> = _exec as any;
 const env = mocked(_env);
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
   cacheDir: join('/tmp/renovate/cache'),
 };
-const dockerAdminConfig = { ...adminConfig, binarySource: 'docker' };
+const dockerGlobalConfig = { ...repoGlobalConfig, binarySource: 'docker' };
 
 const config: UpdateArtifactsConfig = {};
 const lockMaintenanceConfig = { ...config, isLockFileMaintenance: true };
@@ -40,7 +40,7 @@ describe('.updateArtifacts()', () => {
       LANG: 'en_US.UTF-8',
       LC_ALL: 'en_US',
     });
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     docker.resetPrefetchedImages();
   });
 
@@ -89,7 +89,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('supports docker mode', async () => {
-    setRepoGlobalConfig(dockerAdminConfig);
+    setRepoGlobalConfig(dockerGlobalConfig);
     const execSnapshots = mockExecAll(exec);
     git.getRepoStatus.mockResolvedValue({
       modified: ['requirements.txt'],
@@ -140,7 +140,7 @@ describe('.updateArtifacts()', () => {
   });
 
   it('uses pipenv version from config', async () => {
-    setRepoGlobalConfig(dockerAdminConfig);
+    setRepoGlobalConfig(dockerGlobalConfig);
     const execSnapshots = mockExecAll(exec);
     git.getRepoStatus.mockResolvedValue({
       modified: ['requirements.txt'],

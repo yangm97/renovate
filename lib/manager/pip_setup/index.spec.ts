@@ -17,7 +17,7 @@ const packageFile = 'setup.py';
 const content = loadFixture(packageFile);
 const jsonContent = loadFixture('setup.py.json');
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: '/tmp/github/some/repo',
   cacheDir: '/tmp/renovate/cache',
 };
@@ -46,7 +46,7 @@ describe(getName(), () => {
       jest.resetModules();
       extract.resetModule();
 
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
       env.getChildProcessEnv.mockReturnValue(envMock.basic);
 
       // do not copy extract.py
@@ -75,7 +75,7 @@ describe(getName(), () => {
     });
 
     it('returns found deps (docker)', async () => {
-      setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+      setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
       const execSnapshots = mockExecAll(exec, { stdout: '', stderr: '' });
 
       jest.spyOn(fs, 'readLocalFile').mockResolvedValueOnce(jsonContent);

@@ -26,12 +26,12 @@ const fs = mocked(_fs);
 jest.mock('../../../util/exec/env');
 const env = mocked(_env);
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   localDir: join('/foo/bar'),
 };
 
-const dockerAdminConfig = {
-  ...adminConfig,
+const dockerGlobalConfig = {
+  ...repoGlobalConfig,
   binarySource: 'docker',
 };
 
@@ -88,7 +88,7 @@ describe(getName(), () => {
   }
 
   beforeAll(() => {
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
   });
 
   afterAll(() => {
@@ -213,7 +213,7 @@ describe(getName(), () => {
     });
 
     it('should use docker if required', async () => {
-      setRepoGlobalConfig(dockerAdminConfig);
+      setRepoGlobalConfig(dockerGlobalConfig);
       const execSnapshots = setupMocks({ wrapperFilename: null });
       const dependencies = await extractAllPackageFiles(config, [
         'build.gradle',
@@ -223,7 +223,7 @@ describe(getName(), () => {
     });
 
     it('should use docker even if gradlew is available', async () => {
-      setRepoGlobalConfig(dockerAdminConfig);
+      setRepoGlobalConfig(dockerGlobalConfig);
       const execSnapshots = setupMocks();
       const dependencies = await extractAllPackageFiles(config, [
         'build.gradle',
@@ -233,7 +233,7 @@ describe(getName(), () => {
     });
 
     it('should use docker even if gradlew.bat is available on Windows', async () => {
-      setRepoGlobalConfig(dockerAdminConfig);
+      setRepoGlobalConfig(dockerGlobalConfig);
       jest.spyOn(os, 'platform').mockReturnValueOnce('win32');
       const execSnapshots = setupMocks({ wrapperFilename: 'gradlew.bat' });
       const dependencies = await extractAllPackageFiles(config, [

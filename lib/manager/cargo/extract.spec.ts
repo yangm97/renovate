@@ -18,17 +18,17 @@ const cargo6toml = loadFixture('Cargo.6.toml');
 describe(getName(), () => {
   describe('extractPackageFile()', () => {
     let config: ExtractConfig;
-    let adminConfig: RepoGlobalConfig;
+    let repoGlobalConfig: RepoGlobalConfig;
 
     beforeEach(async () => {
       config = {};
       const tmpDir = await dir();
-      adminConfig = {
+      repoGlobalConfig = {
         localDir: join(tmpDir.path, 'local'),
         cacheDir: join(tmpDir.path, 'cache'),
       };
 
-      setRepoGlobalConfig(adminConfig);
+      setRepoGlobalConfig(repoGlobalConfig);
     });
     afterEach(() => {
       setRepoGlobalConfig();

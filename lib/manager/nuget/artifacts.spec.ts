@@ -31,7 +31,7 @@ const getRandomString: jest.Mock<typeof _getRandomString> =
   _getRandomString as any;
 const hostRules = mocked(_hostRules);
 
-const adminConfig: RepoGlobalConfig = {
+const repoGlobalConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
   cacheDir: join('/tmp/renovate/cache'),
@@ -49,7 +49,7 @@ describe('updateArtifacts', () => {
       Promise.resolve(`others/${dirName}`)
     );
     getRandomString.mockReturnValue('not-so-random' as any);
-    setRepoGlobalConfig(adminConfig);
+    setRepoGlobalConfig(repoGlobalConfig);
     docker.resetPrefetchedImages();
   });
 
@@ -150,7 +150,7 @@ describe('updateArtifacts', () => {
   });
 
   it('supports docker mode', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'docker' });
     const execSnapshots = mockExecAll(exec);
     fs.getSiblingFileName.mockReturnValueOnce('packages.lock.json');
     fs.readLocalFile.mockResolvedValueOnce('Current packages.lock.json' as any);
@@ -166,7 +166,7 @@ describe('updateArtifacts', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('supports global mode', async () => {
-    setRepoGlobalConfig({ ...adminConfig, binarySource: 'global' });
+    setRepoGlobalConfig({ ...repoGlobalConfig, binarySource: 'global' });
     const execSnapshots = mockExecAll(exec);
     fs.getSiblingFileName.mockReturnValueOnce('packages.lock.json');
     fs.readLocalFile.mockResolvedValueOnce('Current packages.lock.json' as any);

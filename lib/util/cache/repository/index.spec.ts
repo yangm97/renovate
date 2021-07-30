@@ -1,6 +1,6 @@
 import * as _fs from 'fs-extra';
 import { getName, mocked } from '../../../../test/util';
-import { setRepoGlobalConfig } from '../../../config/admin';
+import { setRepoGlobalConfig } from '../../../config/global';
 import * as repositoryCache from '.';
 
 jest.mock('fs-extra');

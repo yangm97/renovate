@@ -2,7 +2,7 @@ import is from '@sindresorhus/is';
 import { gte, minVersion, validRange } from 'semver';
 import { quote } from 'shlex';
 import { join } from 'upath';
-import { getRepoGlobalConfig } from '../../../config/admin';
+import { getRepoGlobalConfig } from '../../../config/global';
 import {
   SYSTEM_INSUFFICIENT_DISK_SPACE,
   TEMPORARY_ERROR,

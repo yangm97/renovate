@@ -1,7 +1,7 @@
 import hasha from 'hasha';
 import Git from 'simple-git';
 import { join } from 'upath';
-import { getRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/global';
 import { logger } from '../../logger';
 import { ExternalHostError } from '../../types/errors/external-host-error';
 import * as memCache from '../../util/cache/memory';

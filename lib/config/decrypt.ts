@@ -3,7 +3,7 @@ import is from '@sindresorhus/is';
 import { logger } from '../logger';
 import { maskToken } from '../util/mask';
 import { add } from '../util/sanitize';
-import { getRepoGlobalConfig } from './admin';
+import { getRepoGlobalConfig } from './global';
 import type { RenovateConfig } from './types';
 
 export function decryptConfig(config: RenovateConfig): RenovateConfig {

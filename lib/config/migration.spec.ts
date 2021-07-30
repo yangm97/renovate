@@ -1,7 +1,7 @@
 import { getName } from '../../test/util';
 import { PLATFORM_TYPE_GITHUB } from '../constants/platforms';
-import { setRepoGlobalConfig } from './admin';
 import { getConfig } from './defaults';
+import { setRepoGlobalConfig } from './global';
 import * as configMigration from './migration';
 import type {
   MigratedConfig,

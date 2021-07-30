@@ -1,5 +1,5 @@
 import { mergeChildConfig } from '../../../../config';
-import { getRepoGlobalConfig } from '../../../../config/admin';
+import { getRepoGlobalConfig } from '../../../../config/global';
 import type { RenovateConfig } from '../../../../config/types';
 import {
   REPOSITORY_FORKED,

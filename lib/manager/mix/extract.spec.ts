@@ -1,5 +1,5 @@
 import { getName, loadFixture } from '../../../test/util';
-import { setRepoGlobalConfig } from '../../config/admin';
+import { setRepoGlobalConfig } from '../../config/global';
 import { extractPackageFile } from '.';
 
 const sample = loadFixture('mix.exs');

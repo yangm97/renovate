@@ -1,6 +1,6 @@
 import { join } from 'upath';
 import { fs, getName, loadFixture, mocked } from '../../../../test/util';
-import { setRepoGlobalConfig } from '../../../config/admin';
+import { setRepoGlobalConfig } from '../../../config/global';
 import { getPkgReleases } from '../../../datasource';
 import type { UpdateArtifactsConfig } from '../../types';
 import * as hash from './hash';

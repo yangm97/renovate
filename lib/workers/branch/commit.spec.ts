@@ -1,5 +1,5 @@
 import { defaultConfig, getName, git, partial } from '../../../test/util';
-import { setRepoGlobalConfig } from '../../config/admin';
+import { setRepoGlobalConfig } from '../../config/global';
 import type { BranchConfig } from '../types';
 import { commitFilesToBranch } from './commit';
 

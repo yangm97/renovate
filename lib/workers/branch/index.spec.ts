@@ -6,7 +6,7 @@ import {
   mocked,
   platform,
 } from '../../../test/util';
-import { setRepoGlobalConfig } from '../../config/admin';
+import { setRepoGlobalConfig } from '../../config/global';
 import type { RepoGlobalConfig } from '../../config/types';
 import {
   MANAGER_LOCKFILE_ERROR,

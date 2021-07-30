@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 import { getFixturePath, getName, logger } from '../../../../test/util';
-import { setRepoGlobalConfig } from '../../../config/admin';
+import { setRepoGlobalConfig } from '../../../config/global';
 import * as fs from '../../../util/fs';
 import {
   detectPnpmWorkspaces,

@@ -3,7 +3,7 @@ import is from '@sindresorhus/is';
 import ini from 'ini';
 import registryAuthToken from 'registry-auth-token';
 import getRegistryUrl from 'registry-auth-token/registry-url';
-import { getRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/global';
 import { logger } from '../../logger';
 import type { OutgoingHttpHeaders } from '../../util/http/types';
 import { maskToken } from '../../util/mask';

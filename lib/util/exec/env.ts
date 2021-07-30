@@ -1,4 +1,4 @@
-import { getRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/global';
 
 const basicEnvVars = [
   'HTTP_PROXY',

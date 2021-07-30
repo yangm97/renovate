@@ -1,4 +1,4 @@
-import { setRepoGlobalConfig } from '../../config/admin';
+import { setRepoGlobalConfig } from '../../config/global';
 import { getChildProcessEnv } from './env';
 
 describe('getChildProcess environment when trustlevel set to low', () => {

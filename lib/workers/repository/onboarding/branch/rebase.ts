@@ -1,5 +1,5 @@
-import { getRepoGlobalConfig } from '../../../../config/admin';
 import { configFileNames } from '../../../../config/app-strings';
+import { getRepoGlobalConfig } from '../../../../config/global';
 import type { RenovateConfig } from '../../../../config/types';
 import { logger } from '../../../../logger';
 import {

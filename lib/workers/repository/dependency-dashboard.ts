@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import { nameFromLevel } from 'bunyan';
-import { getRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/global';
 import type { RenovateConfig } from '../../config/types';
 import { getProblems, logger } from '../../logger';
 import { platform } from '../../platform';

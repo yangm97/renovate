@@ -8,7 +8,7 @@ import {
   logger,
   platform,
 } from '../../../test/util';
-import { setRepoGlobalConfig } from '../../config/admin';
+import { setRepoGlobalConfig } from '../../config/global';
 import { PLATFORM_TYPE_GITHUB } from '../../constants/platforms';
 import type { Platform } from '../../platform';
 import { BranchConfig, BranchResult, BranchUpgradeConfig } from '../types';

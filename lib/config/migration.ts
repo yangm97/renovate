@@ -3,8 +3,8 @@ import is from '@sindresorhus/is';
 import { dequal } from 'dequal';
 import { logger } from '../logger';
 import { clone } from '../util/clone';
-import { getRepoGlobalConfig } from './admin';
 import { getOptions } from './definitions';
+import { getRepoGlobalConfig } from './global';
 import { removedPresets } from './presets/common';
 import type {
   MigratedConfig,

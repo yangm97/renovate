@@ -1,6 +1,6 @@
 import Git from 'simple-git';
 import upath from 'upath';
-import { getRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/global';
 import { logger } from '../../logger';
 import type { UpdateDependencyConfig } from '../types';
 

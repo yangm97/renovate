@@ -7,7 +7,7 @@ import {
   loadFixture,
   logger,
 } from '../../../../test/util';
-import { setRepoGlobalConfig } from '../../../config/admin';
+import { setRepoGlobalConfig } from '../../../config/global';
 import { TerraformProviderDatasource } from '../../../datasource/terraform-provider';
 import { Logger } from '../../../logger/types';
 import { createHashes } from './hash';

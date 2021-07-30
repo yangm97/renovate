@@ -1,4 +1,4 @@
-import { getRepoGlobalConfig } from '../../../config/admin';
+import { getRepoGlobalConfig } from '../../../config/global';
 import type { RenovateConfig } from '../../../config/types';
 import { logger } from '../../../logger';
 import type { PackageFile } from '../../../manager/types';

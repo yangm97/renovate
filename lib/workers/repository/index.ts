@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { getRepoGlobalConfig, setRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig, setRepoGlobalConfig } from '../../config/global';
 import type { RenovateConfig } from '../../config/types';
 import { logger, setMeta } from '../../logger';
 import { removeDanglingContainers } from '../../util/exec/docker';

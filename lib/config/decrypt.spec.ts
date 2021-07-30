@@ -1,6 +1,6 @@
 import { getName, loadFixture } from '../../test/util';
-import { setRepoGlobalConfig } from './admin';
 import { decryptConfig } from './decrypt';
+import { setRepoGlobalConfig } from './global';
 import type { RenovateConfig } from './types';
 
 const privateKey = loadFixture('private.pem', '.');

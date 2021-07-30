@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import * as handlebars from 'handlebars';
-import { getRepoGlobalConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/global';
 import { logger } from '../../logger';
 import { clone } from '../clone';
 

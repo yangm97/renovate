@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is';
-import { getRepoGlobalConfig } from '../../../config/admin';
+import { getRepoGlobalConfig } from '../../../config/global';
 import { SYSTEM_INSUFFICIENT_MEMORY } from '../../../constants/error-messages';
 import { getPkgReleases } from '../../../datasource';
 import { logger } from '../../../logger';

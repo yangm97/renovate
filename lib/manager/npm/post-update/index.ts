@@ -3,7 +3,7 @@ import { parseSyml } from '@yarnpkg/parsers';
 import deepmerge from 'deepmerge';
 import { dump, load } from 'js-yaml';
 import upath from 'upath';
-import { getRepoGlobalConfig } from '../../../config/admin';
+import { getRepoGlobalConfig } from '../../../config/global';
 import { SYSTEM_INSUFFICIENT_DISK_SPACE } from '../../../constants/error-messages';
 import { id as npmId } from '../../../datasource/npm';
 import { logger } from '../../../logger';

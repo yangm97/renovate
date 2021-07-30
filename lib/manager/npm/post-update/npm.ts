@@ -1,7 +1,7 @@
 import { validRange } from 'semver';
 import { quote } from 'shlex';
 import { join } from 'upath';
-import { getAdminConfig } from '../../../config/admin';
+import { getRepoGlobalConfig } from '../../../config/admin';
 import {
   SYSTEM_INSUFFICIENT_DISK_SPACE,
   TEMPORARY_ERROR,
@@ -52,7 +52,7 @@ export async function generateLockFile(
       cmdOptions += '--package-lock-only --no-audit';
     }
 
-    if (!getAdminConfig().allowScripts || config.ignoreScripts) {
+    if (!getRepoGlobalConfig().allowScripts || config.ignoreScripts) {
       cmdOptions += ' --ignore-scripts';
     }
 
@@ -71,7 +71,7 @@ export async function generateLockFile(
       },
     };
     // istanbul ignore if
-    if (getAdminConfig().exposeAllEnv) {
+    if (getRepoGlobalConfig().exposeAllEnv) {
       execOptions.extraEnv.NPM_AUTH = env.NPM_AUTH;
       execOptions.extraEnv.NPM_EMAIL = env.NPM_EMAIL;
     }

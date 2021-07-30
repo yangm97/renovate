@@ -8,7 +8,7 @@ import {
   logger,
   platform,
 } from '../../../test/util';
-import { setAdminConfig } from '../../config/admin';
+import { setRepoGlobalConfig } from '../../config/admin';
 import { PLATFORM_TYPE_GITHUB } from '../../constants/platforms';
 import type { Platform } from '../../platform';
 import { BranchConfig, BranchResult, BranchUpgradeConfig } from '../types';
@@ -33,7 +33,7 @@ async function dryRun(
   ensureIssueCalls = 0
 ) {
   jest.clearAllMocks();
-  setAdminConfig({ dryRun: true });
+  setRepoGlobalConfig({ dryRun: true });
   await dependencyDashboard.ensureDependencyDashboard(config, branches);
   expect(platform.ensureIssueClosing).toHaveBeenCalledTimes(
     ensureIssueClosingCalls
@@ -60,7 +60,7 @@ describe(getName(), () => {
 
   describe('ensureDependencyDashboard()', () => {
     beforeEach(() => {
-      setAdminConfig();
+      setRepoGlobalConfig();
     });
     it('do nothing if dependencyDashboard is disabled', async () => {
       const branches: BranchConfig[] = [];

@@ -1,4 +1,4 @@
-import { getAdminConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/admin';
 import type { RenovateConfig } from '../../config/types';
 import { logger } from '../../logger';
 import { platform } from '../../platform';
@@ -32,7 +32,7 @@ export async function tryBranchAutomerge(
   if (branchStatus === BranchStatus.green) {
     logger.debug(`Automerging branch`);
     try {
-      if (getAdminConfig().dryRun) {
+      if (getRepoGlobalConfig().dryRun) {
         logger.info('DRY-RUN: Would automerge branch' + config.branchName);
       } else {
         await mergeBranch(config.branchName);

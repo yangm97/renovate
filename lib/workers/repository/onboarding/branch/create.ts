@@ -1,4 +1,4 @@
-import { getAdminConfig } from '../../../../config/admin';
+import { getRepoGlobalConfig } from '../../../../config/admin';
 import { configFileNames } from '../../../../config/app-strings';
 import type { RenovateConfig } from '../../../../config/types';
 import { logger } from '../../../../logger';
@@ -45,7 +45,7 @@ export async function createOnboardingBranch(
     `${commitMessagePrefix} ${onboardingCommitMessage}`.trim();
 
   // istanbul ignore if
-  if (getAdminConfig().dryRun) {
+  if (getRepoGlobalConfig().dryRun) {
     logger.info('DRY-RUN: Would commit files to onboarding branch');
     return null;
   }

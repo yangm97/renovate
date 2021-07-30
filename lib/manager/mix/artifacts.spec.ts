@@ -1,8 +1,8 @@
 import { join } from 'upath';
 import { envMock, exec, mockExecAll } from '../../../test/exec-util';
 import { env, fs, getName } from '../../../test/util';
-import { setAdminConfig } from '../../config/admin';
-import type { RepoAdminConfig } from '../../config/types';
+import { setRepoGlobalConfig } from '../../config/admin';
+import type { RepoGlobalConfig } from '../../config/types';
 import * as docker from '../../util/exec/docker';
 import type { UpdateArtifactsConfig } from '../types';
 import { updateArtifacts } from '.';
@@ -11,7 +11,7 @@ jest.mock('child_process');
 jest.mock('../../util/exec/env');
 jest.mock('../../util/fs');
 
-const adminConfig: RepoAdminConfig = {
+const adminConfig: RepoGlobalConfig = {
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
 };
@@ -24,11 +24,11 @@ describe(getName(), () => {
     jest.resetModules();
 
     env.getChildProcessEnv.mockReturnValue(envMock.basic);
-    setAdminConfig(adminConfig);
+    setRepoGlobalConfig(adminConfig);
   });
 
   afterEach(() => {
-    setAdminConfig();
+    setRepoGlobalConfig();
   });
 
   it('returns null if no mix.lock found', async () => {
@@ -81,7 +81,7 @@ describe(getName(), () => {
 
   it('returns updated mix.lock', async () => {
     jest.spyOn(docker, 'removeDanglingContainers').mockResolvedValueOnce();
-    setAdminConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
     fs.readLocalFile.mockResolvedValueOnce('Old mix.lock');
     fs.getSiblingFileName.mockReturnValueOnce('mix.lock');
     const execSnapshots = mockExecAll(exec);
@@ -98,7 +98,7 @@ describe(getName(), () => {
   });
 
   it('returns updated mix.lock in subdir', async () => {
-    setAdminConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
     fs.getSiblingFileName.mockReturnValueOnce('subdir/mix.lock');
     mockExecAll(exec);
     expect(

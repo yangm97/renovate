@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import { quote } from 'shlex';
-import { getAdminConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/admin';
 import {
   SYSTEM_INSUFFICIENT_DISK_SPACE,
   TEMPORARY_ERROR,
@@ -118,7 +118,7 @@ export async function updateArtifacts({
       args += ' --ignore-platform-reqs';
     }
     args += ' --no-ansi --no-interaction';
-    if (!getAdminConfig().allowScripts || config.ignoreScripts) {
+    if (!getRepoGlobalConfig().allowScripts || config.ignoreScripts) {
       args += ' --no-scripts --no-autoloader --no-plugins';
     }
     logger.debug({ cmd, args }, 'composer command');

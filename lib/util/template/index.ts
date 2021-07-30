@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import * as handlebars from 'handlebars';
-import { getAdminConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/admin';
 import { logger } from '../../logger';
 import { clone } from '../clone';
 
@@ -146,7 +146,7 @@ export function compile(
   input: CompileInput,
   filterFields = true
 ): string {
-  const data = { ...getAdminConfig(), ...input };
+  const data = { ...getRepoGlobalConfig(), ...input };
   const filteredInput = filterFields ? getFilteredObject(data) : data;
   logger.trace({ template, filteredInput }, 'Compiling template');
   if (filterFields) {

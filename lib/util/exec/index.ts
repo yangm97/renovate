@@ -1,6 +1,6 @@
 import type { ExecOptions as ChildProcessExecOptions } from 'child_process';
 import { dirname, join } from 'upath';
-import { getAdminConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/admin';
 import { TEMPORARY_ERROR } from '../../constants/error-messages';
 import { logger } from '../../logger';
 import {
@@ -71,7 +71,7 @@ export async function exec(
 ): Promise<ExecResult> {
   const { env, docker, cwdFile } = opts;
   const { binarySource, dockerChildPrefix, customEnvVariables, localDir } =
-    getAdminConfig();
+    getRepoGlobalConfig();
   const extraEnv = { ...opts.extraEnv, ...customEnvVariables };
   let cwd;
   // istanbul ignore if

@@ -5,8 +5,8 @@ import {
 } from 'child_process';
 import { envMock } from '../../../test/exec-util';
 import { getName } from '../../../test/util';
-import { setAdminConfig } from '../../config/admin';
-import type { RepoAdminConfig } from '../../config/types';
+import { setRepoGlobalConfig } from '../../config/admin';
+import type { RepoGlobalConfig } from '../../config/types';
 import { TEMPORARY_ERROR } from '../../constants/error-messages';
 import { RawExecOptions, VolumeOption } from './common';
 import * as dockerModule from './docker';
@@ -22,7 +22,7 @@ interface TestInput {
   inOpts: ExecOptions;
   outCmd: string[];
   outOpts: RawExecOptions[];
-  adminConfig?: Partial<RepoAdminConfig>;
+  adminConfig?: Partial<RepoGlobalConfig>;
 }
 
 describe(getName(), () => {
@@ -40,7 +40,7 @@ describe(getName(), () => {
     jest.restoreAllMocks();
     jest.resetModules();
     processEnvOrig = process.env;
-    setAdminConfig();
+    setRepoGlobalConfig();
   });
 
   afterEach(() => {
@@ -677,7 +677,7 @@ describe(getName(), () => {
       callback(null, { stdout: '', stderr: '' });
       return undefined;
     });
-    setAdminConfig({ cacheDir, localDir: cwd, ...adminConfig });
+    setRepoGlobalConfig({ cacheDir, localDir: cwd, ...adminConfig });
     await exec(cmd as string, inOpts);
 
     expect(actualCmd).toEqual(outCommand);
@@ -694,19 +694,19 @@ describe(getName(), () => {
       return undefined;
     });
 
-    setAdminConfig({ binarySource: 'global' });
+    setRepoGlobalConfig({ binarySource: 'global' });
     await exec(inCmd, { docker });
     await exec(inCmd, { docker });
 
-    setAdminConfig({ binarySource: 'docker' });
+    setRepoGlobalConfig({ binarySource: 'docker' });
     await exec(inCmd, { docker });
     await exec(inCmd, { docker });
 
-    setAdminConfig({ binarySource: 'global' });
+    setRepoGlobalConfig({ binarySource: 'global' });
     await exec(inCmd, { docker });
     await exec(inCmd, { docker });
 
-    setAdminConfig({ binarySource: 'docker' });
+    setRepoGlobalConfig({ binarySource: 'docker' });
     await exec(inCmd, { docker });
     await exec(inCmd, { docker });
 
@@ -729,7 +729,7 @@ describe(getName(), () => {
   });
 
   it('wraps error if removeDockerContainer throws an error', async () => {
-    setAdminConfig({ binarySource: 'docker' });
+    setRepoGlobalConfig({ binarySource: 'docker' });
     cpExec.mockImplementation(() => {
       throw new Error('some error occurred');
     });

@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is';
-import { getAdminConfig } from '../../../config/admin';
+import { getRepoGlobalConfig } from '../../../config/admin';
 import { SYSTEM_INSUFFICIENT_MEMORY } from '../../../constants/error-messages';
 import { getPkgReleases } from '../../../datasource';
 import { logger } from '../../../logger';
@@ -150,7 +150,7 @@ export async function removeDockerContainer(
 }
 
 export async function removeDanglingContainers(): Promise<void> {
-  const { binarySource, dockerChildPrefix } = getAdminConfig();
+  const { binarySource, dockerChildPrefix } = getRepoGlobalConfig();
   if (binarySource !== 'docker') {
     return;
   }
@@ -203,7 +203,7 @@ export async function generateDockerCommand(
     dockerUser,
     dockerChildPrefix,
     dockerImagePrefix,
-  } = getAdminConfig();
+  } = getRepoGlobalConfig();
   const result = ['docker run --rm'];
   const containerName = getContainerName(image, dockerChildPrefix);
   const containerLabel = getContainerLabel(dockerChildPrefix);

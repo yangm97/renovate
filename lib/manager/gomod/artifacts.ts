@@ -1,6 +1,6 @@
 import is from '@sindresorhus/is';
 import { dirname, join } from 'upath';
-import { getAdminConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/admin';
 import { TEMPORARY_ERROR } from '../../constants/error-messages';
 import { logger } from '../../logger';
 import { ExecOptions, exec } from '../../util/exec';
@@ -169,7 +169,8 @@ export async function updateArtifacts({
         GONOPROXY: process.env.GONOPROXY,
         GONOSUMDB: process.env.GONOSUMDB,
         GOFLAGS: useModcacherw(config.constraints?.go) ? '-modcacherw' : null,
-        CGO_ENABLED: getAdminConfig().binarySource === 'docker' ? '0' : null,
+        CGO_ENABLED:
+          getRepoGlobalConfig().binarySource === 'docker' ? '0' : null,
         ...getGoEnvironmentVariables(registryUrls),
       },
       docker: {

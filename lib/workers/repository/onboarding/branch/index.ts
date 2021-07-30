@@ -1,5 +1,5 @@
 import { mergeChildConfig } from '../../../../config';
-import { getAdminConfig } from '../../../../config/admin';
+import { getRepoGlobalConfig } from '../../../../config/admin';
 import type { RenovateConfig } from '../../../../config/types';
 import {
   REPOSITORY_FORKED,
@@ -66,7 +66,7 @@ export async function checkOnboardingBranch(
       );
     }
   }
-  if (!getAdminConfig().dryRun) {
+  if (!getRepoGlobalConfig().dryRun) {
     await checkoutBranch(onboardingBranch);
   }
   const branchList = [onboardingBranch];

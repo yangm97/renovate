@@ -1,4 +1,4 @@
-import { getAdminConfig } from '../../config/admin';
+import { getRepoGlobalConfig } from '../../config/admin';
 import * as datasourcePypi from '../../datasource/pypi';
 import { logger } from '../../logger';
 import { SkipReason } from '../../types';
@@ -49,7 +49,7 @@ export async function extractSetupFile(
   let cmd = 'python';
   const extractPy = await getExtractFile();
   const args = [`"${extractPy}"`, `"${packageFile}"`];
-  if (getAdminConfig().binarySource !== 'docker') {
+  if (getRepoGlobalConfig().binarySource !== 'docker') {
     logger.debug('Running python via global command');
     cmd = await getPythonAlias();
   }

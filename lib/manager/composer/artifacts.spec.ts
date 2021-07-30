@@ -2,8 +2,8 @@ import { exec as _exec } from 'child_process';
 import { join } from 'upath';
 import { envMock, mockExecAll } from '../../../test/exec-util';
 import { env, fs, git, mocked, partial } from '../../../test/util';
-import { setAdminConfig } from '../../config/admin';
-import type { RepoAdminConfig } from '../../config/types';
+import { setRepoGlobalConfig } from '../../config/admin';
+import type { RepoGlobalConfig } from '../../config/types';
 import {
   PLATFORM_TYPE_GITHUB,
   PLATFORM_TYPE_GITLAB,
@@ -30,7 +30,7 @@ const config: UpdateArtifactsConfig = {
   ignoreScripts: false,
 };
 
-const adminConfig: RepoAdminConfig = {
+const adminConfig: RepoGlobalConfig = {
   allowScripts: false,
   // `join` fixes Windows CI
   localDir: join('/tmp/github/some/repo'),
@@ -50,11 +50,11 @@ describe('.updateArtifacts()', () => {
     env.getChildProcessEnv.mockReturnValue(envMock.basic);
     docker.resetPrefetchedImages();
     hostRules.clear();
-    setAdminConfig(adminConfig);
+    setRepoGlobalConfig(adminConfig);
     fs.ensureCacheDir.mockResolvedValue('/tmp/renovate/cache/others/composer');
   });
   afterEach(() => {
-    setAdminConfig();
+    setRepoGlobalConfig();
   });
   it('returns if no composer.lock found', async () => {
     expect(
@@ -71,7 +71,7 @@ describe('.updateArtifacts()', () => {
     const execSnapshots = mockExecAll(exec);
     fs.readLocalFile.mockReturnValueOnce('Current composer.lock' as any);
     git.getRepoStatus.mockResolvedValue(repoStatus);
-    setAdminConfig({ ...adminConfig, allowScripts: true });
+    setRepoGlobalConfig({ ...adminConfig, allowScripts: true });
     expect(
       await composer.updateArtifacts({
         packageFileName: 'composer.json',
@@ -200,7 +200,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('supports docker mode', async () => {
-    setAdminConfig({ ...adminConfig, binarySource: 'docker' });
+    setRepoGlobalConfig({ ...adminConfig, binarySource: 'docker' });
     fs.readLocalFile.mockResolvedValueOnce('Current composer.lock' as any);
 
     const execSnapshots = mockExecAll(exec);
@@ -231,7 +231,7 @@ describe('.updateArtifacts()', () => {
     expect(execSnapshots).toMatchSnapshot();
   });
   it('supports global mode', async () => {
-    setAdminConfig({ ...adminConfig, binarySource: 'global' });
+    setRepoGlobalConfig({ ...adminConfig, binarySource: 'global' });
     fs.readLocalFile.mockResolvedValueOnce('Current composer.lock' as any);
     const execSnapshots = mockExecAll(exec);
     fs.readLocalFile.mockReturnValueOnce('New composer.lock' as any);

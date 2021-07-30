@@ -7,7 +7,7 @@ import {
   loadFixture,
   logger,
 } from '../../../../test/util';
-import { setAdminConfig } from '../../../config/admin';
+import { setRepoGlobalConfig } from '../../../config/admin';
 import { TerraformProviderDatasource } from '../../../datasource/terraform-provider';
 import { Logger } from '../../../logger/types';
 import { createHashes } from './hash';
@@ -22,7 +22,7 @@ describe(getName(), () => {
 
   beforeAll(async () => {
     cacheDir = await dir({ unsafeCleanup: true });
-    setAdminConfig({ cacheDir: cacheDir.path });
+    setRepoGlobalConfig({ cacheDir: cacheDir.path });
   });
 
   beforeEach(() => jest.resetAllMocks());

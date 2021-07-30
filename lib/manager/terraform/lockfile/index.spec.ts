@@ -1,6 +1,6 @@
 import { join } from 'upath';
 import { fs, getName, loadFixture, mocked } from '../../../../test/util';
-import { setAdminConfig } from '../../../config/admin';
+import { setRepoGlobalConfig } from '../../../config/admin';
 import { getPkgReleases } from '../../../datasource';
 import type { UpdateArtifactsConfig } from '../../types';
 import * as hash from './hash';
@@ -32,7 +32,7 @@ describe(getName(), () => {
   beforeEach(() => {
     jest.resetAllMocks();
     jest.resetModules();
-    setAdminConfig(adminConfig);
+    setRepoGlobalConfig(adminConfig);
   });
 
   afterEach(() => {
